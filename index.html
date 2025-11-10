@@ -17,7 +17,7 @@
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -50%);
+    rotate: 0deg;
 }
 </style>
 
@@ -25,19 +25,18 @@
 	<div id = "TimerText1" class = "TimerText"></div>
 </div>
 
-<div id = "Timer2" class = "Timer">
+<div id = "Timer2" class = "Timer" onclick = "f(this)">
 	<div id = "TimerText2" class = "TimerText"></div>
 </div>
 
 <script>
-	function f(Timer){
-		Timer.style.backgroudColor = "#006400";
-	}
   var t1, t2;
 
   var T1 = document.getElementById("TimerText1");
   var T2 = document.getElementById("TimerText2");
   var doc = document.documentElement;
+  
+  var rot = 0;
 
   
   function strTime(time){
@@ -47,11 +46,26 @@
     if(time <= 60000) return Math.floor(time/1000);
     return (Math.floor(time/60000) + ":" + (Math.floor(time/1000)%60));
   }
+  
+  function centeredRot(rot){
+  	return "translate(-50%, -50%) rotate("+rot+"deg)";
+  }
 
   function setTimerRotation(rot){
-    T1.style.rotate = rot + "deg";
-    T2.style.rotate = "-" + rot + "deg";
+    T1.style.transform = centeredRot(rot);
+    T2.style.transform = centeredRot(-rot);
   }
+  
+  function f(param){
+      T1.innerHTML = param.id;
+      
+      T2.innerHTML = param.id;
+      param.style.backgroundColor = "red";
+      
+      rot += 90;
+      
+      setTimerRotation(rot);
+	}
 </script>
 
 
@@ -93,7 +107,7 @@ settings:
   fullscreen
   sounds
   large buttons -> forces buttons in between timers
-  time orientation
+  time orientation -> done
   clock orientation
   space bar switches clock toggle
 	font

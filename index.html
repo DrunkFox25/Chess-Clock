@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<style>
+.Timer {
+	position: fixed;
+  bottom: 100px;
+  right: 100px;
+  height: 30px;
+  width: 30px;
+}
+</style>
+
+<textarea id = "Timer1" class = "Timer" readonly></textarea>
+<textarea id = "Timer2" class = "Timer" readonly></textarea>
+
+<script>
+  var t1, t2;
+
+  var T1 = document.getElementById("Timer1");
+  var T2 = document.getElementById("Timer2");
+  var doc = document.documentElement;
+
+  
+  function strTime(time){
+    if(time > 3600*1000*200) return "inf";
+    if(time <= 1000) return Math.floor(time/10)/100;
+    if(time <= 10000) return Math.floor(time/100)/10;
+    if(time <= 60000) return Math.floor(time/1000);
+    return (Math.floor(time/60000) + ":" + (Math.floor(time/1000)%60));
+  }
+
+  function setTimerRotation(rot){
+    T1.style.rotate = rot + "deg";
+    T2.style.rotate = "-" + rot + "deg";
+  }
+</script>
+
+
+</body>
+</html>
+
+<!--
+
+prototype goals:
+
+2 timers triggerd by space bar\
+
+
+
+
+todo:
+
+display time mode
+
+presets
+
+buttons:
+
+settings
+pause -> pause menu you can edit times precisely
+reset
+add time +15sec
+halfmove counter
+mute button
+
+
+
+
+set time: seperate menu
+
+
+settings:
+  colors
+  fullscreen
+  sounds
+  large buttons -> forces buttons in between timers
+  time orientation
+  clock orientation
+  space bar switches clock toggle
+
+
+
+
+
+-->

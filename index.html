@@ -3,23 +3,40 @@
 <head>
 
 <style>
-.Timer {
-	position: fixed;
-  bottom: 100px;
-  right: 100px;
-  height: 30px;
-  width: 30px;
+
+.Timer { 
+	height: 200px;
+	width: 300px;
+	position: relative;
+	background-color: darkGreen;
+	border: 3px solid green; 
+}
+
+.Timer .TimerText{
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
 }
 </style>
 
-<textarea id = "Timer1" class = "Timer" readonly></textarea>
-<textarea id = "Timer2" class = "Timer" readonly></textarea>
+<div id = "Timer1" class = "Timer" onclick = "f(this)">
+	<div id = "TimerText1" class = "TimerText"></div>
+</div>
+
+<div id = "Timer2" class = "Timer">
+	<div id = "TimerText2" class = "TimerText"></div>
+</div>
 
 <script>
+	function f(Timer){
+		Timer.style.backgroudColor = "#006400";
+	}
   var t1, t2;
 
-  var T1 = document.getElementById("Timer1");
-  var T2 = document.getElementById("Timer2");
+  var T1 = document.getElementById("TimerText1");
+  var T2 = document.getElementById("TimerText2");
   var doc = document.documentElement;
 
   
@@ -64,7 +81,7 @@ reset
 add time +15sec
 halfmove counter
 mute button
-
+rotate
 
 
 
@@ -79,6 +96,7 @@ settings:
   time orientation
   clock orientation
   space bar switches clock toggle
+	font
 
 
 

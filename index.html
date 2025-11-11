@@ -2,45 +2,7 @@
 <html>
 <head>
 
-<style>
-
-.Timer { 
-	height: 300px;
-	width: 300px;
-	position: relative;
-	background-color: #570e3b;
-	border: 3px solid #003200;
-}
-
-.Timer[data-state = "paused"]{
-	background-color: #006400;
-}
-
-.Timer[data-state = "pref"]{
-	background-color: #003232;
-}
-
-.Timer[data-state = "play"]{
-	background-color: #000064;
-}
-
-
-
-
-.Timer .TimerText{
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-    color: black;
-    font-size: 100px;
-    font-family: Source Code Pro;/*monospaced*/
-    font-weight: 1000;/*500-1000*/
-}
-
-
-
-</style>
+<link rel="stylesheet" type="text/css" href="style.css">
 
 <div id = "Timer0" class = "Timer" onclick = "f(this)" data-val = "0" data-state = "paused"><!--f this-->
 	<div id = "TimerText0" class = "TimerText">-0000000</div>

@@ -8,35 +8,78 @@
 	height: 200px;
 	width: 300px;
 	position: relative;
-	background-color: darkGreen;
-	border: 3px solid green; 
+	border: 3px solid #003200;
 }
+
+
 
 .Timer .TimerText{
 	margin: 0;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-    rotate: 0deg;
+    color: black;
 }
+
+
+.Timer[data-state = "paused"]{
+	background-color: #006400;
+}
+
+.Timer[data-state = "pref"]{
+	background-color: #003232;
+}
+
+.Timer[data-state = "play"]{
+	background-color: #000064;
+}
+
+
 </style>
 
-<div id = "Timer1" class = "Timer" onclick = "f(this)">
-	<div id = "TimerText1" class = "TimerText"></div>
+<div id = "Timer1" class = "Timer" onclick = "f(this)" data-val = "1" data-state = "paused">
+	<div id = "TimerText1" class = "TimerText">-0000000</div>
 </div>
 
-<div id = "Timer2" class = "Timer" onclick = "f(this)">
-	<div id = "TimerText2" class = "TimerText"></div>
+<br>
+<br>
+
+<div id = "Timer2" class = "Timer" onclick = "f(this)" data-val = "2" data-state = "paused">
+	<div id = "TimerText2" class = "TimerText">-0000000</div>
 </div>
+
+<button id = "pause" onclick = "pause(this)">PAUSE</button>
+
+<button id = "play" onclick = "play(this)">PLAY</button>
+
 
 <script>
-  var t1, t2;
+
+let cbg = "#000000";
+let cClockBorder = "#00FF00";
+
+
+
+document.documentElement.style.backgroundColor = cbg;
+	//var DisplayW = window.innerWidth;
+	//var DisplayH = window.innerHeight;
+
+	//window.addEventListener("resize", myFunction);
+
+	var state1 = "paused";//"pref", "play"
+    var state2 = "paused";
+    var t1, t2;
+    var tpos = 0;
+    var paused = true;
 
   var T1 = document.getElementById("TimerText1");
   var T2 = document.getElementById("TimerText2");
+  var tb1 = document.getElementById("Timer1");
+  var tb2 = document.getElementById("Timer2");
   var doc = document.documentElement;
   
-  var rot = 0;
+  
+  let tb = ["void", tb1, tb2];
 
   
   function strTime(time){
@@ -56,16 +99,25 @@
     T2.style.transform = centeredRot(-rot);
   }
   
+  setTimerRotation(0);
+
+  
   function f(param){
-      T1.innerHTML = param.id;
-      
-      T2.innerHTML = param.id;
-      param.style.backgroundColor = "red";
-      
-      rot += 90;
-      
-      setTimerRotation(rot);
+  		tpos = 3-param.dataset.val;
+        
+        tb[3-tpos].dataset.state = "paused";
+        tb[tpos].dataset.state = "play";
+     // playstate(param.dataset.val);
 	}
+    
+    function pause(param){
+    	tb[tpos].dataset.state = "pref";
+    }
+    
+    function play(param){
+    	tb[tpos].dataset.state = "play";
+    }
+    
 </script>
 
 

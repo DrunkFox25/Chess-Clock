@@ -5,22 +5,12 @@
 <style>
 
 .Timer { 
-	height: 200px;
+	height: 300px;
 	width: 300px;
 	position: relative;
+	background-color: #570e3b;
 	border: 3px solid #003200;
 }
-
-
-
-.Timer .TimerText{
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-    color: black;
-}
-
 
 .Timer[data-state = "paused"]{
 	background-color: #006400;
@@ -35,87 +25,169 @@
 }
 
 
+
+
+.Timer .TimerText{
+	margin: 0;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+    color: black;
+    font-size: 100px;
+    font-family: Source Code Pro;/*monospaced*/
+    font-weight: 1000;/*500-1000*/
+}
+
+
+
 </style>
 
-<div id = "Timer1" class = "Timer" onclick = "f(this)" data-val = "1" data-state = "paused">
+<div id = "Timer0" class = "Timer" onclick = "f(this)" data-val = "0" data-state = "paused"><!--f this-->
+	<div id = "TimerText0" class = "TimerText">-0000000</div>
+</div>
+
+<br>
+<br>
+
+<div id = "Timer1" class = "Timer" onclick = "f(this)" data-val = "1" data-state = "paused"><!--f this-->
 	<div id = "TimerText1" class = "TimerText">-0000000</div>
 </div>
 
+<button id = "pause" onclick = "pause()">PAUSE add pause menu and precise time adding</button>
 <br>
+<button id = "play" onclick = "play()">PLAY</button>
+<br>
+<button id = "settings" onclick = "opensettings(this)">SETTINGS</button>
+<br>
+<button id = "reset" onclick = "reset()">RESET</button>
+<br>
+<button id = "rotate" onclick = "rotate()">ROTATO</button>
+<br>
+<button id = "mute" onclick = "togglemute()">TO MUTE OR NOT TO MUTE THAT IS NOT A QUESTION</button>
+<br>
+<button id = "addt0" onclick = "addtime(0)">GIVE TIME TO 0</button>
+<br>
+<button id = "addt1" onclick = "addtime(1)">GIVE TIME TO 1</button>
 <br>
 
-<div id = "Timer2" class = "Timer" onclick = "f(this)" data-val = "2" data-state = "paused">
-	<div id = "TimerText2" class = "TimerText">-0000000</div>
-</div>
+halfmove counter: <p id = "hmcnt">0</p>
 
-<button id = "pause" onclick = "pause(this)">PAUSE</button>
-
-<button id = "play" onclick = "play(this)">PLAY</button>
 
 
 <script>
-
-let cbg = "#000000";
-let cClockBorder = "#00FF00";
-
-
-
-document.documentElement.style.backgroundColor = cbg;
 	//var DisplayW = window.innerWidth;
 	//var DisplayH = window.innerHeight;
 
 	//window.addEventListener("resize", myFunction);
 
-	var state1 = "paused";//"pref", "play"
-    var state2 = "paused";
-    var t1, t2;
-    var tpos = 0;
+	let start = [3*60*1000, 3*60*1000];
+	let inc = [2*1000, 2*1000];
+
+	function starttime(a, b){
+		if(a == 0) return b;
+		return a;
+	}
+	
+	let t = [starttime(start[0],inc[0]), starttime(start[0],inc[0])];
+    var tpos = 2;//2 is start val
     var paused = true;
 
-  var T1 = document.getElementById("TimerText1");
-  var T2 = document.getElementById("TimerText2");
-  var tb1 = document.getElementById("Timer1");
-  var tb2 = document.getElementById("Timer2");
-  var doc = document.documentElement;
-  
-  
-  let tb = ["void", tb1, tb2];
+  	var T0 = document.getElementById("TimerText0");
+  	var T1 = document.getElementById("TimerText1");
+  	var tb0 = document.getElementById("Timer0");
+  	var tb1 = document.getElementById("Timer1");
+  	var doc = document.documentElement;
+	
+	doc.style.backgroundColor = "#000000";
+	
+    let TimerText = [T0, T1];
+  	let tb = [tb0, tb1];
 
-  
-  function strTime(time){
-    if(time > 3600*1000*200) return "inf";
-    if(time <= 1000) return Math.floor(time/10)/100;
-    if(time <= 10000) return Math.floor(time/100)/10;
-    if(time <= 60000) return Math.floor(time/1000);
-    return (Math.floor(time/60000) + ":" + (Math.floor(time/1000)%60));
-  }
-  
-  function centeredRot(rot){
-  	return "translate(-50%, -50%) rotate("+rot+"deg)";
-  }
+	
+	function strTime(time){
+		if(time > 3600*1000*200) return "inf";
+		if(time <= 1000) return Math.floor(time/10)/100;
+		if(time <= 10000) return Math.floor(time/100)/10;
+		if(time <= 60000) return Math.floor(time/1000);
+		return (Math.floor(time/60000) + ":" + (Math.floor(time/1000)%60).toString().padStart(2, "0"));
+	}
 
-  function setTimerRotation(rot){
-    T1.style.transform = centeredRot(rot);
-    T2.style.transform = centeredRot(-rot);
-  }
-  
-  setTimerRotation(0);
 
+	var Timer;
+    
+    function updateTimer(deltatime){
+		if(!paused) t[tpos] -= deltatime;
+       	TimerText[tpos].innerHTML = strTime(t[tpos]);
+	}
+	
+    
+    function startTimer(){
+    	paused = false;
+		Timer = setInterval(updateTimer, 10, 10);
+    }
+    
+    function endTimer(){
+    	paused = true;
+    	clearInterval(Timer);
+    }
+    
+    T0.innerHTML = strTime(t[0]);
+    T1.innerHTML = strTime(t[1]);
+    
+  	function centeredRot(rot){
+  		return "translate(-50%, -50%) rotate("+rot+"deg)";
+  	}
+	
+  	function setTimerRotation(rot){
+    	T0.style.transform = centeredRot(rot);
+    	T1.style.transform = centeredRot(-rot);
+	}
+	
+	var rot = 0;
+  	setTimerRotation(0);
+
+	function rotate(){
+		rot += 90;
+
+		setTimerRotation(rot);
+	}
+	
   
-  function f(param){
-  		tpos = 3-param.dataset.val;
+  	function f(param){
+		var val = param.dataset.val;
+        if(tpos == 2){
+        	tpos = val;
+            startTimer();
+        }
+        if(paused) return;
+		if(val != tpos) return;
         
-        tb[3-tpos].dataset.state = "paused";
-        tb[tpos].dataset.state = "play";
-     // playstate(param.dataset.val);
+		t[tpos] += inc[tpos];
+		
+		
+        tb[tpos].dataset.state = "paused";
+        tb[1-tpos].dataset.state = "play";
+		
+  		tpos = 1-tpos;//switch players
+
+		return;
 	}
     
-    function pause(param){
+    function pause(){
+        endTimer();
+        
     	tb[tpos].dataset.state = "pref";
     }
     
-    function play(param){
+    function play(){
     	tb[tpos].dataset.state = "play";
+        
+        startTimer();
+	}
+    
+    function reset(){
+    	t[0]--;
+        t[1]--;
     }
     
 </script>
@@ -126,11 +198,6 @@ document.documentElement.style.backgroundColor = cbg;
 
 <!--
 
-prototype goals:
-
-2 timers triggerd by space bar\
-
-
 
 
 todo:
@@ -138,18 +205,6 @@ todo:
 display time mode
 
 presets
-
-buttons:
-
-settings
-pause -> pause menu you can edit times precisely
-reset
-add time +15sec
-halfmove counter
-mute button
-rotate
-
-
 
 set time: seperate menu
 
@@ -162,7 +217,8 @@ settings:
   time orientation -> done
   clock orientation
   space bar switches clock toggle
-	font
+  font
+  allow negitive time
 
 
 

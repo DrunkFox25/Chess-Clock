@@ -103,6 +103,7 @@ function pause(){
 }
 
 function play(){
+    if(!paused) return;
     tb[tpos].dataset.state = "play";
     
     startTimer();

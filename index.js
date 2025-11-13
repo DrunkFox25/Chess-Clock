@@ -3,28 +3,34 @@
 
 //window.addEventListener("resize", myFunction);
 
-let start = [3*60*1000, 3*60*1000];
-let inc = [2*1000, 2*1000];
+const ClockMode = {
+    start: [3*60*1000, 3*60*1000],
+    inc: [2*1000, 2*1000],
 
-function starttime(a, b){
-    if(a == 0) return b;
-    return a;
-}
+    startTime: function(index){
+        if(this.start[index] <= 0) return this.inc[index];
+        return this.start[index];
+    }
+};
 
-let t = [starttime(start[0],inc[0]), starttime(start[0],inc[0])];
-var tpos = 2;//2 is start val
-var paused = true;
 
-var T0 = document.getElementById("TimerText0");
-var T1 = document.getElementById("TimerText1");
-var tb0 = document.getElementById("Timer0");
-var tb1 = document.getElementById("Timer1");
+let byId = document.getElementById;
+
+
+
+const tb = {
+    ti: [byId("Timer0"), byId("Timer1")],
+
+    set : function(val, mode){
+        this.ti[val].dataset.state = mode;
+    }
+};
+
 var doc = document.documentElement;
 
 doc.style.backgroundColor = "#000000";
 
-let TimerText = [T0, T1];
-let tb = [tb0, tb1];
+
 
 
 function strTime(time){
@@ -35,81 +41,121 @@ function strTime(time){
     return (Math.floor(time/60000) + ":" + (Math.floor(time/1000)%60).toString().padStart(2, "0"));
 }
 
-
-var Timer;
-
-function updateTimer(deltatime){
-    if(!paused) t[tpos] -= deltatime;
-    TimerText[tpos].innerHTML = strTime(t[tpos]);
-}
-
-
-function startTimer(){
-    paused = false;
-    Timer = setInterval(updateTimer, 10, 10);
-}
-
-function endTimer(){
-    paused = true;
-    clearInterval(Timer);
-}
-
-T0.innerHTML = strTime(t[0]);
-T1.innerHTML = strTime(t[1]);
-
 function centeredRot(rot){
     return "translate(-50%, -50%) rotate("+rot+"deg)";
 }
 
-function setTimerRotation(rot){
-    T0.style.transform = centeredRot(rot);
-    T1.style.transform = centeredRot(-rot);
-}
+
+const TimerText = {
+    tt0: byId("TimerText0"),
+    tt1: byId("TimerText1"),
+
+    update : function(t0, t1){
+        tt0.innerHTML = strTime(t0);
+        tt1.innerHTML = strTime(t1);
+    },
+
+    setRot : function(rot){
+        tt0.style.transform = centeredRot(rot);
+        tt1.style.transform = centeredRot(-rot);
+    }
+};
+
+
+
+
+
+
+
+const Timer = {
+    dt: 1,//ms
+    paused: "maybe",
+    t: [-1, -1],
+    tpos: -1,
+
+    reset : function(t0, t1){
+        this.tpos = 2;//2 is start val
+        this.paused = true;
+
+        this.t[0] = t0;
+        this.t[1] = t1;
+
+        TimerText.update(t0, t1);
+    },
+
+    update : function(){
+        if(!this.paused) this.t[this.tpos] -= this.dt;
+        TimerText.update(this.t[0], this.t[1]);
+    },
+
+    start : function(){
+    	if(!this.paused) return;
+        
+        this.paused = false;
+    	tb.set(this.tpos, "play");
+        this.Timer = setInterval(this.updateTimer, this.dt);
+    },
+
+    end : function(){
+    	if(Timer.paused) return;
+        
+        clearInterval(this.Timer);
+    	tb.set(this.tpos, "pref");
+        this.paused = true;
+    }
+};
+
+
+
+
 
 var rot = 0;
-setTimerRotation(0);
+//setTimerRotation(0);
 
 function rotate(){
     rot += 90;
 
-    setTimerRotation(rot);
+    TimerText.setrot(rot);
 }
 
 
-function f(param){
+function f(param){//kept in for onlclick f(this)
     var val = param.dataset.val;
-    if(tpos == 2){
-        tpos = val;
-        startTimer();
+
+    timerPress(param.dataset.val);
+}
+
+function timerPress(val){
+
+    if(Timer.tpos == 2){
+        Timer.tpos = val;
+        Timer.start();
     }
-    if(paused) return;
-    if(val != tpos) return;
+    if(Timer.paused) return;
+    if(val != Timer.tpos) return;
     
-    t[tpos] += inc[tpos];
+    Timer.t[Timer.tpos] += Timer.inc[Timer.tpos];
     
     
-    tb[tpos].dataset.state = "paused";
-    tb[1-tpos].dataset.state = "play";
+    tb.set(Timer.tpos, "paused");
+    tb.set(1-Timer.tpos, "play");
     
-    tpos = 1-tpos;//switch players
+    Timer.tpos = 1-Timer.tpos;//switch players
 
     return;
 }
 
 function pause(){
-    endTimer();
-    
-    tb[tpos].dataset.state = "pref";
+    Timer.end();
 }
 
 function play(){
-    if(!paused) return;
-    tb[tpos].dataset.state = "play";
-    
-    startTimer();
+	Timer.start();
 }
 
 function reset(){
-    t[0]--;
-    t[1]--;
+    Timer.reset();
 }
+
+
+reset();

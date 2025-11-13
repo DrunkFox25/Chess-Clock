@@ -1,33 +1,59 @@
-.Timer { 
+.Timer{
 	height: 300px;
 	width: 300px;
-	position: relative;
-	background-color: #570e3b;
-	border: 3px solid #003200;
-}
-
-.Timer[data-state = "paused"]{
-	background-color: #006400;
-}
-
-.Timer[data-state = "pref"]{
-	background-color: #003232;
-}
-
-.Timer[data-state = "play"]{
-	background-color: #000064;
+	font-size: 300px;
 }
 
 
 
+.Timer > .TimerButton{
+	margin: 0;
+	position: absolute;
+	width: inherit;
+	height: inherit;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 
-.Timer .TimerText{
+.Timer > .TimerText{
 	margin: 0;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-    color: black;
-    font-size: 100px;
+	transform: translate(-50%, 50%);
+}
+
+
+
+
+
+.TimerButton{
+	background-color: #570e3b;/*debug color*/
+	border-color: #2b071f;/*debug color*/
+	border-width: 3px;
+	border-style: solid;
+}
+
+.Timer[data-state = "paused"] > .TimerButton{
+	background-color: #006400;
+	border-color: #003200;
+}
+
+.Timer[data-state = "pref"] > .TimerButton{
+	background-color: #006400;
+	border-color: #000032;
+}
+
+.Timer[data-state = "play"] > .TimerButton{
+	background-color: #000064;
+	border-color: #000032;
+}
+
+
+.TimerText{
+    color: #000000;
+    font-size: 80%;
     font-family: Source Code Pro;/*monospaced*/
     font-weight: 1000;/*500-1000*/
 }

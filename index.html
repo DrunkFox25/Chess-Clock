@@ -21,6 +21,7 @@
 	
 
 <div id = "Timer0" class = "Timer" onclick = "f(this)" data-val = "0" data-state = "paused"><!--f this-->
+  <div id = "TimerButton0" class = "TimerButton"></div>
 	<div id = "TimerText0" class = "TimerText">-0000000</div>
 </div>
 
@@ -28,28 +29,35 @@
 <br>
 
 <div id = "Timer1" class = "Timer" onclick = "f(this)" data-val = "1" data-state = "paused"><!--f this-->
+  <div id = "TimerButton1" class = "TimerButton"></div>
 	<div id = "TimerText1" class = "TimerText">-0000000</div>
 </div>
 
-<button id = "pause" onclick = "pause()">PAUSE add pause menu and precise time adding</button>
-<br>
-<button id = "play" onclick = "play()">PLAY</button>
-<br>
-<button id = "settings" onclick = "opensettings(this)">SETTINGS</button>
-<br>
-<button id = "reset" onclick = "reset()">RESET</button>
-<br>
-<button id = "rotate" onclick = "rotate()">ROTATO</button>
-<br>
-<button id = "mute" onclick = "togglemute()">TO MUTE OR NOT TO MUTE THAT IS NOT A QUESTION</button>
-<br>
-<button id = "addt0" onclick = "addtime(0)">GIVE TIME TO 0</button>
-<br>
-<button id = "addt1" onclick = "addtime(1)">GIVE TIME TO 1</button>
-<br>
 
-halfmove counter: <p id = "hmcnt">0</p>
 
+<div id = "playmenu">
+  <button id = "pause" onclick = "pause()">PAUSE add pause menu and precise time adding</button>
+  <br>
+  <button id = "play" onclick = "play()">PLAY</button>
+  <br>
+  <button id = "settings" onclick = "opensettings(this)">SETTINGS</button>
+  <br>
+  <button id = "reset" onclick = "reset()">RESET</button>
+  <br>
+  <button id = "rotate" onclick = "rotate()">ROTATO</button>
+  <br>
+  <button id = "mute" onclick = "togglemute()">TO MUTE OR NOT TO MUTE THAT IS NOT A QUESTION</button>
+  <br>
+  <button id = "addt0" onclick = "addtime(0)">GIVE TIME TO 0</button>
+  <br>
+  <button id = "addt1" onclick = "addtime(1)">GIVE TIME TO 1</button>
+  <br>
+
+
+  halfmove counter: <p id = "hmcnt">0</p>
+
+
+</div>
 
 
 	

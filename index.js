@@ -67,9 +67,9 @@ const TimerText = {
 
 
 
-const Timer = {
-    dt: 1,//ms
-    paused: "maybe",
+var Timer = {
+    dt: 1,
+    paused: true,
     t: [-1, -1],
     tpos: -1,
 
@@ -93,7 +93,7 @@ const Timer = {
         
         this.paused = false;
     	tb.set(this.tpos, "play");
-        this.Timer = setInterval(this.updateTimer, this.dt);
+        this.Timer = setInterval(this.update, this.dt);
     },
 
     end : function(){
@@ -102,6 +102,25 @@ const Timer = {
         clearInterval(this.Timer);
     	tb.set(this.tpos, "pref");
         this.paused = true;
+    },
+
+    press : function(val){
+        if(this.tpos == 2){
+            this.tpos = val;
+            this.start();
+        }
+        if(this.paused) return;
+        if(val != Timer.tpos) return;
+        
+        this.t[this.tpos] += this.inc[this.tpos];
+        
+        
+        tb.set(this.tpos, "paused");
+        tb.set(1-this.tpos, "play");
+        
+        this.tpos = 1-this.tpos;//switch players
+
+        
     }
 };
 
@@ -122,28 +141,9 @@ function rotate(){
 function f(param){//kept in for onlclick f(this)
     var val = param.dataset.val;
 
-    timerPress(param.dataset.val);
+    Timer.press(param.dataset.val);
 }
 
-function timerPress(val){
-
-    if(Timer.tpos == 2){
-        Timer.tpos = val;
-        Timer.start();
-    }
-    if(Timer.paused) return;
-    if(val != Timer.tpos) return;
-    
-    Timer.t[Timer.tpos] += Timer.inc[Timer.tpos];
-    
-    
-    tb.set(Timer.tpos, "paused");
-    tb.set(1-Timer.tpos, "play");
-    
-    Timer.tpos = 1-Timer.tpos;//switch players
-
-    return;
-}
 
 function pause(){
     Timer.end();
@@ -158,4 +158,4 @@ function reset(){
 }
 
 
-reset();
+Timer.reset();

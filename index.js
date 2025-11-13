@@ -3,32 +3,16 @@
 
 //window.addEventListener("resize", myFunction);
 
-const ClockMode = {
-    start: [3*60*1000, 3*60*1000],
-    inc: [2*1000, 2*1000],
+var doc = document.documentElement;
 
-    startTime: function(index){
-        if(this.start[index] <= 0) return this.inc[index];
-        return this.start[index];
-    }
-};
-
+doc.style.backgroundColor = "#000000";
 
 let byId = document.getElementById;
 
 
 
-const tb = {
-    ti: [byId("Timer0"), byId("Timer1")],
 
-    set : function(val, mode){
-        this.ti[val].dataset.state = mode;
-    }
-};
 
-var doc = document.documentElement;
-
-doc.style.backgroundColor = "#000000";
 
 
 
@@ -45,6 +29,28 @@ function centeredRot(rot){
     return "translate(-50%, -50%) rotate("+rot+"deg)";
 }
 
+
+
+
+
+
+const ClockMode = {
+    start: [3*60*1000, 3*60*1000],
+    inc: [2*1000, 2*1000],
+
+    startTime: function(index){
+        if(this.start[index] <= 0) return this.inc[index];
+        return this.start[index];
+    }
+};
+
+const tb = {
+    ti: [byId("Timer0"), byId("Timer1")],
+
+    set : function(val, mode){
+        this.ti[val].dataset.state = mode;
+    }
+};
 
 const TimerText = {
     tt0: byId("TimerText0"),

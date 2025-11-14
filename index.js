@@ -7,10 +7,8 @@ var doc = document.documentElement;
 
 doc.style.backgroundColor = "#000000";
 
-let byId = document.getElementById;
-
-var t0 = byId("Timer0");
-var t1 = byId("Timer1");
+var t0 = document.getElementById("Timer0");
+var t1 = document.getElementById("Timer1");
 let ti = [t0, t1];
 
 
@@ -66,40 +64,41 @@ function update(T0, T1){
 
 
 
-var Timer = {
-    dt: 1,
+var Timer = {//line 182
+    dt: 100,
     paused: true,
     t: [-1, -1],
     tpos: -1,
 
-    reset : function(t0, t1){
+    reset : function(){
         this.tpos = 2;//2 is start val
         this.paused = true;
 
-        this.t[0] = t0;
-        this.t[1] = t1;
+        this.t[0] = ClockMode.startTime(0);
+        this.t[1] = ClockMode.startTime(1);
 
-        update(t0, t1);
+        update(this.t[0], this.t[1]);
     },
 
-    update : function(){
-        if(!this.paused) this.t[this.tpos] -= this.dt;
-        update(this.t[0], this.t[1]);
+    update : function(Tis){//fuck tis shit
+        if(!Tis.paused) Tis.t[Tis.tpos] -= Tis.dt;
+        update(Tis.t[0], Tis.t[1]);
     },
 
     start : function(){
     	if(!this.paused) return;
+        if(this.tpos == 2) return;
         
         this.paused = false;
-    	tb.set(this.tpos, "play");
-        this.Timer = setInterval(this.update, this.dt);
+        set(this.tpos, "play");
+        this.Timer = setInterval((this.update), this.dt, this);
     },
 
     end : function(){
-    	if(Timer.paused) return;
-        
+    	if(this.paused) return;
+      
         clearInterval(this.Timer);
-    	tb.set(this.tpos, "pref");
+        set(this.tpos, "pref");
         this.paused = true;
     },
 
@@ -111,11 +110,11 @@ var Timer = {
         if(this.paused) return;
         if(val != Timer.tpos) return;
         
-        this.t[this.tpos] += this.inc[this.tpos];
+        this.t[this.tpos] += ClockMode.inc[this.tpos];
         
         
-        tb.set(this.tpos, "paused");
-        tb.set(1-this.tpos, "play");
+        set(this.tpos, "paused");
+        set(1-this.tpos, "play");
         
         this.tpos = 1-this.tpos;//switch players
 
@@ -137,7 +136,7 @@ function rotate(){
 }
 
 
-function f(param){//kept in for onclick f(this)
+function f(param){//kept in for onclick f(this)\
     Timer.press(param.dataset.val);
 }
 
@@ -151,7 +150,7 @@ function play(){
 }
 
 function reset(){
-    Timer.reset(ClockMode.startTime(0), ClockMode.startTime(1));
+    Timer.reset();
 }
 
 

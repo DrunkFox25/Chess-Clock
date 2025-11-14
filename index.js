@@ -121,7 +121,7 @@ var Timer = {//173
     },
 
     press : function(val){
-        if(paused){
+        if(this.paused){
             if(this.tpos == 2){
                 if(val == "space") return;
                 this.tpos = 1-val;

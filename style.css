@@ -1,59 +1,52 @@
+.centerContent{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
 .Timer{
 	height: 300px;
 	width: 300px;
+}
+
+.Timer{
 	font-size: 100px;
-}
-
-
-
-.Timer > .TimerButton{
-	margin: 0;
-	position: absolute;
-	width: inherit;
-	height: inherit;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-}
-
-.Timer > .TimerText{
-	margin: 0;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
+    color: #000000;
+    font-size: 80%;
+    font-family: Roboto Mono;/*monospaced*/
+    font-weight: 1000;/*500-1000*/
 }
 
 
 
 
 
-.TimerButton{
-	background-color: #570e3b;/*debug color*/
-	border-color: #2b071f;/*debug color*/
+.Timer{
 	border-width: 3px;
 	border-style: solid;
 }
 
-.Timer[data-state = "paused"] > .TimerButton{
+
+
+
+.Timer{
+	background-color: #570e3b;/*debug color*/
+	border-color: #2b071f;/*debug color*/
+}
+
+.Timer[data-state = "paused"]{
 	background-color: #006400;
 	border-color: #003200;
 }
 
-.Timer[data-state = "pref"] > .TimerButton{
+.Timer[data-state = "pref"]{
 	background-color: #006400;
 	border-color: #000032;
 }
 
-.Timer[data-state = "play"] > .TimerButton{
+.Timer[data-state = "play"]{
 	background-color: #000064;
 	border-color: #000032;
 }
 
-
-.TimerText{
-    color: #000000;
-    font-size: 80%;
-    font-family: Source Code Pro;/*monospaced*/
-    font-weight: 1000;/*500-1000*/
-}

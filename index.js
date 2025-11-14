@@ -9,7 +9,9 @@ doc.style.backgroundColor = "#000000";
 
 let byId = document.getElementById;
 
-
+var t0 = byId("Timer0");
+var t1 = byId("Timer1");
+let ti = [t0, t1];
 
 
 
@@ -25,10 +27,9 @@ function strTime(time){
     return (Math.floor(time/60000) + ":" + (Math.floor(time/1000)%60).toString().padStart(2, "0"));
 }
 
-function centeredRot(rot){
-    return "translate(-50%, -50%) rotate("+rot+"deg)";
+function timertext(text, rot){
+    return "<span style = 'rotate("+rot+")'>"+text+"</span>";
 }
-
 
 
 
@@ -44,28 +45,20 @@ const ClockMode = {
     }
 };
 
-const tb = {
-    ti: [byId("Timer0"), byId("Timer1")],
+function set(val, mode){
+    ti[val].dataset.state = mode;
+}
 
-    set : function(val, mode){
-        this.ti[val].dataset.state = mode;
-    }
-};
 
-const TimerText = {
-    tt0: byId("TimerText0"),
-    tt1: byId("TimerText1"),
 
-    update : function(t0, t1){
-        tt0.innerHTML = strTime(t0);
-        tt1.innerHTML = strTime(t1);
-    },
-
-    setRot : function(rot){
-        tt0.style.transform = centeredRot(rot);
-        tt1.style.transform = centeredRot(-rot);
-    }
-};
+var textrot = 0;
+function setTextRot(rot){
+    textrot = rot;
+}
+function update(T0, T1){
+    t0.innerHTML = timertext(strTime(T0), textrot);
+    t1.innerHTML = timertext(strTime(T1), textrot);
+}
 
 
 
@@ -86,12 +79,12 @@ var Timer = {
         this.t[0] = t0;
         this.t[1] = t1;
 
-        TimerText.update(t0, t1);
+        update(t0, t1);
     },
 
     update : function(){
         if(!this.paused) this.t[this.tpos] -= this.dt;
-        TimerText.update(this.t[0], this.t[1]);
+        update(this.t[0], this.t[1]);
     },
 
     start : function(){
@@ -139,14 +132,12 @@ var rot = 0;
 
 function rotate(){
     rot += 90;
-
-    TimerText.setrot(rot);
+    setTextRot(rot);
+    update();
 }
 
 
-function f(param){//kept in for onlclick f(this)
-    var val = param.dataset.val;
-
+function f(param){//kept in for onclick f(this)
     Timer.press(param.dataset.val);
 }
 
@@ -160,8 +151,8 @@ function play(){
 }
 
 function reset(){
-    Timer.reset();
+    Timer.reset(ClockMode.startTime(0), ClockMode.startTime(1));
 }
 
 
-Timer.reset();
+reset();

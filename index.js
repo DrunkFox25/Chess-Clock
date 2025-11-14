@@ -180,7 +180,7 @@ function spaceoff(){
 
 
 
-spaceon();
+/*spaceon();*/
 
 
 

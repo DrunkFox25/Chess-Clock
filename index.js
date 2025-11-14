@@ -83,26 +83,21 @@ var Timer = {//173
         movcnt.innerHTML = this.hlfmovcnt;
     },
 
-    update : function(Tis){//fuck tis shit
-        if(!Tis.paused) Tis.t[Tis.tpos] -= Tis.dt;
-        Tis.updateText();
-    },
-
     start : function(){
-    	if(!this.paused || this.tpos == 2) return;
+    	if(this.tpos == 2) return;
         
         this.paused = false;
 
         ti[this.tpos].dataset.state = "play";
 
         this.Timer = setInterval(function(){
-            if(!Timer.paused) Timer.t[Timer.tpos] -= Timer.dt;
-            Timer.updateText();
+            this.t[Timer.tpos] -= this.dt;
+            this.updateText();
         }, this.dt);
     },
 
     end : function(){
-    	if(this.paused || this.tpos == 2) return;
+    	if(this.tpos == 2) return;
       
         clearInterval(this.Timer);
         ti[this.tpos].dataset.state = "pref";
@@ -186,6 +181,6 @@ spaceon();
 
 
 
-function start(){Timer.start();}
-function end(){Timer.end();}
+function start(){if(Timer.paused){Timer.start();}}
+function end(){if(!Timer.paused){Timer.end();}}
 function reset(){Timer.reset();}

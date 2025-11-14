@@ -89,8 +89,7 @@ var Timer = {//173
     },
 
     start : function(){
-    	if(!this.paused) return;
-        if(this.tpos == 2) return;
+    	if(!this.paused || this.tpos == 2) return;
         
         this.paused = false;
 
@@ -102,21 +101,14 @@ var Timer = {//173
     },
 
     end : function(){
-    	if(this.paused) return;
+    	if(this.paused || this.tpos == 2) return;
       
         clearInterval(this.Timer);
         ti[this.tpos].dataset.state = "pref";
         this.paused = true;
     },
 
-    press : function(val){
-        if(this.tpos == 2){
-            this.tpos = val;
-            this.start();
-        }
-        if(this.paused) return;
-        if(val != Timer.tpos) return;
-        
+    switch: function(){
         this.hlfmovcnt += 1;
 
         this.t[this.tpos] += ClockMode.inc[this.tpos];
@@ -125,8 +117,20 @@ var Timer = {//173
         ti[1-this.tpos].dataset.state = "play";
         
         this.tpos = 1-this.tpos;//switch players
+    },
 
+    press : function(val){
+        if(paused){
+            if(this.tpos == 2){
+                if(val == "space") return;
+                this.tpos = 1-val;
+            }
+
+            this.start();
+        }
+        if(1-this.tpos == val) return;
         
+        this.switch();
     }
 };
 
@@ -149,17 +153,28 @@ function f(param){//kept in for onclick f(this)\
 }
 
 
-function pause(){
-    Timer.end();
-}
-
-function play(){
-	Timer.start();
-}
-
-function reset(){
-    Timer.reset();
-}
 
 
 Timer.reset();
+
+
+var Slisten = 0;
+function sapceon(){
+    if(Slisten != 0) return;
+    Slisten = document.addEventListener('keyup',
+        event => {
+            if (event.code === 'Space') {
+                Timer.press("space");
+            }
+        }
+    );
+}
+
+function spaceoff(){
+    document.removeEventListener(Slisten);
+    Slisten = 0;
+}
+
+
+
+sapceon();

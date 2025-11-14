@@ -1,4 +1,17 @@
+<!DOCTYPE html>
+<html>
+
+
+
+
+<head>
+
 <link rel="icon" href="img/favicon.jpeg" type="image/x-icon">
+
+<title>A Very Big Chess C**ck</title>
+
+</head>
+
 
 <link rel="stylesheet" type="text/css" href="style.css">
 
@@ -9,7 +22,6 @@
 <div id = "Timer0" class = "Timer centerContent" onclick = "f(this)" data-val = "0" data-state = "paused">0</div>
 
 <br>
-<br>
 
 <div id = "Timer1" class = "Timer centerContent" onclick = "f(this)" data-val = "1" data-state = "paused">0</div>
 
@@ -17,13 +29,13 @@
 <br>
 
 <div id = "playmenu">
-  <button id = "pause" onclick = "pause()">PAUSE add pause menu for time adding</button>
+  <button id = "pause" onclick = "Timer.end()">PAUSE add pause menu for time adding</button>
   <br>
-  <button id = "play" onclick = "play()">PLAY</button>
+  <button id = "play" onclick = "Timer.start()">PLAY</button>
   <br>
   <button id = "settings" onclick = "opensettings(this)">SETTINGS</button>
   <br>
-  <button id = "reset" onclick = "reset()">RESET</button>
+  <button id = "reset" onclick = "Timer.reset()">RESET</button>
   <br>
   <button id = "rotate" onclick = "rotate()">ROTATO</button>
   <br>
@@ -34,6 +46,8 @@
 </div>
 
 <script src="index.js" type="text/javascript"></script>
+
+</html>
 
 <!--
 
@@ -50,9 +64,9 @@ settings:
   fullscreen
   sounds
   large buttons -> forces buttons in between timers
-  time orientation -> done
+  time orientation
   clock orientation
-  !!!space bar switches clock toggle!!!
+  space bar switches clock toggle
   font
   allow negitive time
 

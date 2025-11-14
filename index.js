@@ -83,6 +83,11 @@ var Timer = {//173
         movcnt.innerHTML = this.hlfmovcnt;
     },
 
+    update : function(){
+        this.t[Timer.tpos] -= this.dt;
+        this.updateText();
+    },
+
     start : function(){
     	if(this.tpos == 2) return;
         
@@ -90,10 +95,7 @@ var Timer = {//173
 
         ti[this.tpos].dataset.state = "play";
 
-        this.Timer = setInterval(function(){
-            this.t[Timer.tpos] -= this.dt;
-            this.updateText();
-        }, this.dt);
+        this.Timer = setInterval(u, this.dt);
     },
 
     end : function(){
@@ -133,6 +135,10 @@ var Timer = {//173
 };
 
 
+
+function u(){
+    Timer.update();
+}
 
 
 

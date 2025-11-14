@@ -180,4 +180,4 @@ function spaceoff(){
 
 
 
-sapceon();
+spaceon();

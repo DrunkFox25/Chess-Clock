@@ -181,3 +181,11 @@ function spaceoff(){
 
 
 spaceon();
+
+
+
+
+
+function start(){Timer.start();}
+function end(){Timer.end();}
+function reset(){Timer.reset();}

@@ -154,4 +154,4 @@ function reset(){
 }
 
 
-reset();
+Timer.reset();

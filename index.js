@@ -94,6 +94,7 @@ var Timer = {//173
         this.paused = false;
 
         ti[this.tpos].dataset.state = "play";
+
         this.Timer = setInterval(function(){
             if(!Timer.paused) Timer.t[Timer.tpos] -= Timer.dt;
             Timer.updateText();
@@ -127,6 +128,8 @@ var Timer = {//173
             }
 
             this.start();
+
+            return;
         }
         if(1-this.tpos == val) return;
         
@@ -148,7 +151,7 @@ function rotate(){
 }
 
 
-function f(param){//kept in for onclick f(this)\
+function f(param){/*kept in for onclick f(this)*/
     Timer.press(param.dataset.val);
 }
 

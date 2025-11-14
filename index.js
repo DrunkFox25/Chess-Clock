@@ -11,6 +11,8 @@ var t0 = document.getElementById("Timer0");
 var t1 = document.getElementById("Timer1");
 let ti = [t0, t1];
 
+var movcnt = document.getElementById("movcnt");
+
 
 
 
@@ -26,7 +28,7 @@ function strTime(time){
 }
 
 function timertext(text, rot){
-    return "<span style = 'rotate("+rot+")'>"+text+"</span>";
+    return "<span style = 'transform: rotate("+rot+"deg)'>"+text+"</span>";
 }
 
 
@@ -53,36 +55,37 @@ var textrot = 0;
 function setTextRot(rot){
     textrot = rot;
 }
-function update(T0, T1){
-    t0.innerHTML = timertext(strTime(T0), textrot);
-    t1.innerHTML = timertext(strTime(T1), textrot);
-}
 
-
-
-
-
-
-
-var Timer = {//line 182
+var Timer = {//173
     dt: 100,
     paused: true,
     t: [-1, -1],
     tpos: -1,
+    hlfmovcnt: 0,
 
     reset : function(){
         this.tpos = 2;//2 is start val
         this.paused = true;
+        this.hlfmovcnt = 0;
 
         this.t[0] = ClockMode.startTime(0);
         this.t[1] = ClockMode.startTime(1);
 
-        update(this.t[0], this.t[1]);
+        ti[0].dataset.state = "paused";
+        ti[0].dataset.state = "paused";
+
+        this.updateText();
+    },
+
+    updateText : function(){
+        t0.innerHTML = timertext(strTime(this.t[0]), textrot);
+        t1.innerHTML = timertext(strTime(this.t[1]), -textrot);
+        movcnt.innerHTML = this.hlfmovcnt;
     },
 
     update : function(Tis){//fuck tis shit
         if(!Tis.paused) Tis.t[Tis.tpos] -= Tis.dt;
-        update(Tis.t[0], Tis.t[1]);
+        Tis.updateText();
     },
 
     start : function(){
@@ -90,15 +93,19 @@ var Timer = {//line 182
         if(this.tpos == 2) return;
         
         this.paused = false;
-        set(this.tpos, "play");
-        this.Timer = setInterval((this.update), this.dt, this);
+
+        ti[this.tpos].dataset.state = "play";
+        this.Timer = setInterval(function(){
+            if(!Timer.paused) Timer.t[Timer.tpos] -= Timer.dt;
+            Timer.updateText();
+        }, this.dt);
     },
 
     end : function(){
     	if(this.paused) return;
       
         clearInterval(this.Timer);
-        set(this.tpos, "pref");
+        ti[this.tpos].dataset.state = "pref";
         this.paused = true;
     },
 
@@ -110,11 +117,12 @@ var Timer = {//line 182
         if(this.paused) return;
         if(val != Timer.tpos) return;
         
+        this.hlfmovcnt += 1;
+
         this.t[this.tpos] += ClockMode.inc[this.tpos];
-        
-        
-        set(this.tpos, "paused");
-        set(1-this.tpos, "play");
+
+        ti[this.tpos].dataset.state = "paused";
+        ti[1-this.tpos].dataset.state = "play";
         
         this.tpos = 1-this.tpos;//switch players
 
@@ -132,7 +140,7 @@ var rot = 0;
 function rotate(){
     rot += 90;
     setTextRot(rot);
-    update();
+    Timer.updateText(Timer);
 }
 
 

@@ -49,3 +49,12 @@
 	border-color: #000032;
 }
 
+#movcnt{
+    font-family: Roboto Mono;/*monospaced*/
+	font-weight: 1000;
+	color: #000000;
+}
+
+#playmenu{
+	background-color: #ffffff;
+}

@@ -162,7 +162,7 @@ Timer.reset();
 
 
 var Slisten = 0;
-function sapceon(){
+function spaceon(){
     if(Slisten != 0) return;
     Slisten = document.addEventListener('keyup',
         event => {

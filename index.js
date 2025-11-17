@@ -210,21 +210,23 @@ function togglemute(){
     return true;
 }
 
-/*
 
-document.querySelectorAll(".customani").forEach(function(elem){//set data-anim = "[["trigger", "animstate", lengthoftime], [], []]"
-	const arr = JSON.parse(elem.dataset.anim);
-    arr.forEach(function(Ani){
-        elem.addEventListener(Ani[0], function(){
-            if(elem.dataset.animstate != "none" && elem.dataset.__anim != undefined) clearTimeout(elem.dataset.__anim);
-            elem.dataset.animstate = Ani[1];
-            elem.dataset.__anim = setTimeout(function(){
-                elem.dataset.animstate = "none";
-            }, Ani[2]);
+function initCustomAni(){
+    document.querySelectorAll(".customani").forEach(function(elem){//set data-anim = "[["trigger", "animstate", lengthoftime], [], []]"
+        const arr = JSON.parse(elem.dataset.anim);
+        arr.forEach(function(Ani){
+            elem.addEventListener(Ani[0], function(){
+                if(elem.dataset.animstate != "none" && elem.dataset.__anim != undefined) clearTimeout(elem.dataset.__anim);
+                elem.dataset.animstate = Ani[1];
+                elem.dataset.__anim = setTimeout(function(){
+                    elem.dataset.animstate = "none";
+                }, Ani[2]);
+            });
         });
     });
-});
-*/
+}
+
+initCustomAni();
 
 var smenu = document.getElementById("settingsmenu");
 function opensettings(){

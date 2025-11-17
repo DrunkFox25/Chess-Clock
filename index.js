@@ -210,9 +210,9 @@ function togglemute(){
     return true;
 }
 
+/*
 
-
-document.querySelectorAll(".customani").forEach(function(elem){/*set data-anim = '[["trigger", "animstate", lengthoftime], [], []]"*/
+document.querySelectorAll(".customani").forEach(function(elem){//set data-anim = "[["trigger", "animstate", lengthoftime], [], []]"
 	const arr = JSON.parse(elem.dataset.anim);
     arr.forEach(function(Ani){
         elem.addEventListener(Ani[0], function(){
@@ -224,6 +224,7 @@ document.querySelectorAll(".customani").forEach(function(elem){/*set data-anim =
         });
     });
 });
+*/
 
 var smenu = document.getElementById("settingsmenu");
 function opensettings(){

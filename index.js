@@ -35,13 +35,18 @@ function timertext(text, rot){
 
 
 
-const ClockMode = {
+var ClockMode = {
     start: [3*60*1000, 3*60*1000],
     inc: [2*1000, 2*1000],
 
     startTime: function(index){
         if(this.start[index] <= 0) return this.inc[index];
         return this.start[index];
+    },
+
+    currentTimeMode: function(){
+        if(start[0] == start[1] && inc[0] == inc[1]) return start[0]/(60*1000) + "+" + inc[0]/1000;
+        return start[0]/(60*1000) + "+" + inc[0]/1000 + ";" + start[0]/(60*1000) + "+" + inc[0]/1000;
     }
 };
 
@@ -89,21 +94,27 @@ var Timer = {//173
     },
 
     start : function(){
-    	if(this.tpos == 2) return;
         
         this.paused = false;
-
         ti[this.tpos].dataset.state = "play";
-
         this.Timer = setInterval(u, this.dt);
     },
 
     end : function(){
-    	if(this.tpos == 2) return;
-      
+
         clearInterval(this.Timer);
         ti[this.tpos].dataset.state = "pref";
         this.paused = true;
+
+    },
+
+    toggleplay: function(){
+        if(this.tpos == 2) return false;
+
+        if(this.paused) this.start();
+        else this.end();
+
+        return true;
     },
 
     switch: function(){
@@ -187,6 +198,33 @@ spaceon();
 
 
 
-function start(){if(Timer.paused){Timer.start();}}
-function end(){if(!Timer.paused){Timer.end();}}
+function start(){if(Timer.paused && Timer.tpos != 2){Timer.start();}}
+function end(){if(!Timer.paused && Timer.tpos != 2){Timer.end();}}
 function reset(){Timer.reset();}
+
+
+
+function toggle(elem, values, success){
+    if(success) elem.innerHTML = values[(values.indexOf(elem.innerHTML)+1)%values.length];
+}
+
+
+
+function togglemute(){
+    return true;
+}
+
+
+
+document.querySelectorAll(".customani").forEach(function(elem){/*set data-anim = '[["trigger", "animstate", lengthoftime], [], []]"*/
+	const arr = JSON.parse(elem.dataset.anim);
+    arr.forEach(function(Ani){
+        elem.addEventListener(Ani[0], function(){
+            if(elem.dataset.animstate != "none" && elem.dataset.__anim != undefined) clearTimeout(elem.dataset.__anim);
+            elem.dataset.animstate = Ani[1];
+            elem.dataset.__anim = setTimeout(function(){
+                elem.dataset.animstate = "none";
+            }, Ani[2]);
+        });
+    });
+});

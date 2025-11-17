@@ -52,9 +52,6 @@
 	border-style: solid;
 }
 
-
-
-
 .Timer{
 	background-color: #570e3b;/*debug color*/
 	border-color: #2b071f;/*debug color*/
@@ -94,6 +91,6 @@
 }
 
 #playmenu{
-	width: 750px;
+	width: 250px;
 	background-color: #ffffff;
 }

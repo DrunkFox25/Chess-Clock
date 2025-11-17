@@ -170,7 +170,6 @@ function f(param){/*kept in for onclick f(this)*/
 
 
 
-Timer.reset();
 
 
 var Slisten = 0;
@@ -192,15 +191,12 @@ function spaceoff(){
 
 
 
+Timer.reset();
 spaceon();
 
 
 
 
-
-function start(){if(Timer.paused && Timer.tpos != 2){Timer.start();}}
-function end(){if(!Timer.paused && Timer.tpos != 2){Timer.end();}}
-function reset(){Timer.reset();}
 
 
 
@@ -228,3 +224,8 @@ document.querySelectorAll(".customani").forEach(function(elem){/*set data-anim =
         });
     });
 });
+
+var smenu = document.getElementById("settingsmenu");
+function opensettings(){
+    smenu.hidden = !smenu.hidden;
+}

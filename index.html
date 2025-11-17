@@ -2,11 +2,9 @@
 <html>
 
 
-
-
   <head>
 
-    <link rel="icon" href="img/favicon.jpeg" type="image/x-icon">
+    <link rel="icon" href="assets/img/favicon.jpeg" type="image/x-icon">
 
     <title>A Very Big Chess C**ck</title>
 
@@ -25,45 +23,43 @@
 
   </head>
 
+
+
+
   <link rel="stylesheet" href = "https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close,flag,fullscreen,fullscreen_exit,more_time,pause,play_arrow,punch_clock,refresh,rotate_90_degrees_cw,rotate_right,save_clock,schedual,settings,volume_off,volume_up&display=block"/><!--needs to be in alphabetical order: https://alphabetizer.flap.tv/ -->
 
 
-
+  <object type="text/html" data="audio.html"></object><!--loads audio-->
   <link rel="stylesheet" href="style.css"/>
   <script src="index.js"></script>
 
 
 
-  <div>
+  <div id = "Clock">
     <div id = "Timer0" class = "Timer centerContent" onclick = "f(this)" data-val = "0" data-state = "paused">-0</div>
     <div id = "Timer1" class = "Timer centerContent" onclick = "f(this)" data-val = "1" data-state = "paused">-0</div>
-  </div>
 
-
-  <br>
-  <br>
-
-  <div id = "playmenu">
-    <div>
+    <div id = "playmenu">
+      
       <span id = "playbutton" class = "material-symbols-rounded" onclick = "toggle(this, ['pause', 'play_arrow'], Timer.toggleplay())">play_arrow</span>
-    </div>
-
-    <div>
+      
       <span id = "sbutton" class = "material-symbols-rounded" onclick = "opensettings('propably need to pause automaticly for this')">settings</span>
-    </div>
 
-    <div>
       <span id = "rbutton" class = "material-symbols-rounded customani" onclick = "Timer.reset()" data-anim='[["click", "Animated", 200]]'>refresh</span>
-    </div>
-    
-    <div>
+  
       <span id = "mutebutton" class = "material-symbols-rounded" onclick = "toggle(this, ['volume_up', 'volume_off'], togglemute())">volume_up</span>
       <!--TO MUTE OR NOT TO MUTE THAT IS NOT A QUESTION</button-->
+      <span id = "movcnt">0</span>
+      
     </div>
-    <span id = "movcnt">0</span>
-    <br>
+
   </div>
 
+
+  <br>
+  <br>
+
+  
   <div id = "timermenu" hidden>
     set time
     load time
@@ -85,17 +81,18 @@
       epileptic mode: prevents the turn on of deaf mode
     
     <div id = "creditslink"><!--need to link this to credits-->
-      <img src="img/GitHub Logos/GitHub_Invertocat_Light.svg" height = "100px">
+      <img src="assets/img/GitHub Logos/GitHub_Invertocat_Light.svg" height = "100px">
       <span>CREDITS</span>
     </div>
   </div>
 
   <div id = "credits" hidden>
-    <a href="https://github.com/DrunkFox25/Chess-Clock"><img src="img/GitHub Logos/GitHub_Lockup_Light.svg" height = "100px"></a>
+    <a href="https://github.com/DrunkFox25/Chess-Clock"><img src="assets/img/GitHub Logos/GitHub_Lockup_Light.svg" height = "100px"></a>
     
     Thx Github for hosting this project.
     Thx Google for <a href = "https://fonts.google.com/icons">matirial font</a> icons (on <a href = "https://github.com/google/material-design-icons">github</a>).
     Thx W3Schools for lots of css help.
+    Thx lichess for sound assets.
 
     Dev: <a href = "https://github.com/DrunkFox25">DrunkFox25</a> ie. Peter Aravin
 

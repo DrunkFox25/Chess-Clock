@@ -4,6 +4,40 @@
 	content: url(attr(data-play));
 }*/
 
+
+#clock {
+	width: 100%;
+	height: 100%;
+}
+
+.Timer {
+	position: absolute;
+	width: 40%;
+	bottom: 0%;
+	top: 0%;
+}
+
+#Timer0 {
+	left: 0%;
+}
+
+#Timer1 {
+	right: 0%;
+}
+
+#playmenu {
+	left: 40%;
+	right: 40%;
+	top: 0%;
+	bottom: 0%;
+	display: flex;
+	flex-direction: column;
+}
+
+
+
+
+
 #settingsmenu{
 	width:100%;
 	height:100%;

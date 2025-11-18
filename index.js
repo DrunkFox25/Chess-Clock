@@ -28,6 +28,8 @@ var movcnt = document.getElementById("movcnt");
 
 
 t0.innerHTML = "<span>hhhhh</span>";
+t0.dataset.state = "flag";
+
 
 
 function strTime(time){

@@ -36,8 +36,8 @@
 
 
   <div id = "Clock">
-    <div id = "Timer0" class = "Timer centerContent" onclick = "f(this)" data-val = "0" data-state = "paused">-0</div>
-    <div id = "Timer1" class = "Timer centerContent" onclick = "f(this)" data-val = "1" data-state = "paused">-0</div>
+    <div id = "Timer0" class = "Timer centerContent" onclick = "f(this)" data-state = "paused" data-textrot = "0deg">-0</div>
+    <div id = "Timer1" class = "Timer centerContent" onclick = "f(this)" data-state = "paused" data-textrot = "0deg">-0</div>
 
     <div id = "playmenu">
       
@@ -45,7 +45,7 @@
       
       <span id = "sbutton" class = "material-symbols-rounded" onclick = "opensettings('propably need to pause automaticly for this')">settings</span>
 
-      <span id = "rbutton" class = "material-symbols-rounded customani" onclick = "Timer.reset()" data-anim='[["click", "Animated", 200]]'>refresh</span>
+      <span id = "rbutton" class = "material-symbols-rounded" onclick = "Timer.reset()" data-anim="click">refresh</span>
   
       <span id = "mutebutton" class = "material-symbols-rounded" onclick = "toggle(this, ['volume_up', 'volume_off'], togglemute())">volume_up</span>
       <!--TO MUTE OR NOT TO MUTE THAT IS NOT A QUESTION</button-->
@@ -105,9 +105,6 @@
 
 <!--
 
-todo:
-
-display time mode
 
 darker background when in not fullscreen menu
 

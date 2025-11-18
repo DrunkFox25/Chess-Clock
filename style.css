@@ -1,37 +1,102 @@
+@keyframes rot360{
+	from{rotate: 0deg;}
+	to{rotate: 360deg;}
+}
 
-/*can not do: attr tainting: security risk
-.playbutton[data-state = "pause"]{
-	content: url(attr(data-play));
-}*/
+
+
+
+@property --trans{
+	syntax: "<transform-function>";
+ 	initial-value: "";
+	inherits: true;
+}
+
+/*ex.
+
+.box{
+	--trans: rotate(attr(data-trans deg, 0deg));
+}
+
+.box *{
+    transform: var(--trans);
+}
+*/
+
+
+@property --textrot{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: true;
+}
+
+
+
+.Timer{
+    --textrot: attr(data-textrot deg, 10deg);
+}
+
+.Timer > span{/*timer text*/
+    opacity: 1;
+    rotate: var(--textrot);
+}
+
+
+
+
+.centerContent{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+
 
 
 #clock {
-	width: 100%;
-	height: 100%;
+    top: 0%;
+    bottom: 0%;
+    left: 0%;
+    right: 0%;
+    
+    background-color: #000000;
 }
 
-.Timer {
+#Timer0, #Timer1, #playmenu {
 	position: absolute;
-	width: 40%;
 	bottom: 0%;
 	top: 0%;
 }
 
 #Timer0 {
 	left: 0%;
-}
-
-#Timer1 {
-	right: 0%;
+    width: 40%;
 }
 
 #playmenu {
 	left: 40%;
 	right: 40%;
-	top: 0%;
-	bottom: 0%;
+}
+
+#Timer1 {
+	right: 0%;
+    width: 40%;
+}
+
+
+
+
+
+#playmenu {
 	display: flex;
 	flex-direction: column;
+}
+
+
+#rbutton[data-event = "click"]{
+	animation-timing-function: linear;
+	animation-duration: 0.2s;
+	animation-name: rot360;
 }
 
 
@@ -44,62 +109,28 @@
 	background-color: #ffffff;
 }
 
-@keyframes rot360{
-	from{rotate: 0deg;}
-	to{rotate: 360deg;}
-}
-
-#rbutton[data-animstate = "Animated"]{
-	animation-timing-function: linear;
-	animation-duration: 0.2s;
-	animation-name: rot360;
-}
 
 
-
-.centerContent{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-
-.Timer{
-	border-radius: 10px;
-}
 
 .Timer{
 	font-size: 100px;
     color: #000000;
     font-family: Roboto Mono;/*monospaced*/
     font-weight: 1000;/*500-1000*/
-}
 
-
-
-
-
-.Timer{
-	border-width: 3px;
+	border-radius: 5vh;
+	border-width: 3vh;
 	border-style: solid;
 }
+
+
 
 .Timer{
 	background-color: #570e3b;/*debug color*/
 	border-color: #2b071f;/*debug color*/
 }
 
-.Timer[data-state = "paused"]{
-	background-color: #006400;
-	border-color: #003200;
-}
-
-.Timer[data-state = "pref"]{
-	background-color: #006400;
-	border-color: #000032;
-}
-
-.Timer[data-state = "play"]{
+.Timer[data-state = "normal"]{
 	background-color: #000064;
 	border-color: #000032;
 }
@@ -114,6 +145,18 @@
 	border-color: #7f0000;
 }
 
+.Timer[data-active = "false"]{
+    background-color: #00ff00;
+}
+
+.Timer[data-paused = "true"]{
+	opacity: 50%;
+}
+
+
+
+
+
 /*cool color #7f0000, #7f003f*/
 
 #movcnt{
@@ -122,6 +165,3 @@
 	color: #000000;
 }
 
-#playmenu{
-	background-color: #ffffff;
-}

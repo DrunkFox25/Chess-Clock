@@ -38,8 +38,8 @@ t0.dataset.state = "flag";
 
 
 
-UI.updateTimerElem(t0, -1000, "flag", false, true, true);
-UI.updateTimerElem(t1, 10000, "lowtime", false, false, true);
+UI.updateTimerElem(t0, -1000, true, "flag", UI.strBool(false), UI.strBool(true));
+UI.updateTimerElem(t1, 10000, true, "lowtime", UI.strBool(false), UI.strBool(false));
 UI.updateMovCnt(movcnt, 4);
 
 

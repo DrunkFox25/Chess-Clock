@@ -28,14 +28,6 @@ icon name
 }
 */
 
-@property --textrot{
-    syntax: "<angle>";
-    initial-value: 0deg;
-    inherits: true;
-}
-
-
-
 .centerContent{
 	display: flex;
 	justify-content: center;

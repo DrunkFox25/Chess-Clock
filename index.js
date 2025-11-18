@@ -14,7 +14,7 @@ import from "./ui.js";
 //window.addEventListener("resize", myFunction);
 
 //var r = document.querySelector(':root');
-var doc = document.documentElement;
+//var doc = document.documentElement;
 
 var t0 = document.getElementById("Timer0");
 var t1 = document.getElementById("Timer1");
@@ -28,7 +28,7 @@ var pmenu = document.getElementById("playmenu");
 var movcnt = document.getElementById("movcnt");
 
 
-
+/*
 
 
 function strTime(time){
@@ -208,7 +208,7 @@ var Timer = {//fix states, do it, idk
 
 Timer.reload();
 
-/*
+
 var rot = 0;
 function rotate(){
     rot += 90;
@@ -216,10 +216,10 @@ function rotate(){
     Timer.reload();
 }
 
-*/
 
 
-function f(param){Timer.event(param.id);/*onclick = f(this)*/}
+
+function f(param){Timer.event(param.id);}//onclick f(this)
 
 
 
@@ -250,6 +250,8 @@ document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim 
         });
     });
 });*/
+
+
 /*
 document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim = "trigger1 trigger2"
     elem.dataset.anim.split(" ").forEach(function(Ani){

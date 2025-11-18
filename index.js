@@ -77,7 +77,9 @@ function toggle(elem, values, success){
     if(success) elem.innerHTML = values[(values.indexOf(elem.innerHTML)+1)%values.length];
 }
 
-
+updateTimerElem(t0, -1000, false, true, true);
+updateTimerElem(t1, 10000, false, false, true);
+updateMovCnt(movcnt, 4);
 
 
 

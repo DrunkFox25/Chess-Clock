@@ -8,7 +8,7 @@ import from "./ui.js";
 
 
 
-
+alert('hello');
 
 function strTime(time){
     if(time <= 1000) return Math.floor(time/10)/100;
@@ -214,7 +214,7 @@ var Timer = {//fix states, do it, idk
 
 
 
-
+/*
 var rot = 0;
 function rotate(){
     rot += 90;
@@ -222,16 +222,17 @@ function rotate(){
     Timer.reload();
 }
 
+*/
+
 
 function f(param){Timer.event(param.id);/*onclick = f(this)*/}
 
 
 
 
-
 document.addEventListener('keyup',
     event => {
-        if (event.code === 'Space') Timer.event("space");
+        if (event.code == 'Space') Timer.event("space");
     }
 );
 

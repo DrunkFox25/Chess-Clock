@@ -20,8 +20,6 @@ var t0 = document.getElementById("Timer0");
 var t1 = document.getElementById("Timer1");
 let ti = [t0, t1];
 
-t0.innerHTML = "<span>hhhhh</span>";
-
 
 var pmenu = document.getElementById("playmenu");
 
@@ -29,6 +27,7 @@ var movcnt = document.getElementById("movcnt");
 
 
 
+t0.innerHTML = "<span>hhhhh</span>";
 
 
 function strTime(time){
@@ -40,7 +39,7 @@ function strTime(time){
 }
 
 function timertext(time, showneg){
-    if(time < 0 && !showneg) return "<span class = \"material-symbols-rounded\">flag</span>";
+    if(time < 0 && showneg) return "<span class = \"material-symbols-rounded\">flag</span>";
     return "<span>"+strTime(time)+"</span>";
 }
 
@@ -55,12 +54,12 @@ function strBool(b){
 }
 
 
+
+
 function setTextRot(elem0, elem1, rot){
     elem0.dataset.textrot = rot;
     elem1.dataset.textrot = -rot;
 }
-
-
 
 function updateTimerElem(elem, time, mode, paused, active, showneg){
     elem.innerHTML = timertext(time, showneg);
@@ -77,8 +76,12 @@ function toggle(elem, values, success){
     if(success) elem.innerHTML = values[(values.indexOf(elem.innerHTML)+1)%values.length];
 }
 
-updateTimerElem(t0, -1000, ClockMode.state(-1000), false, true, true);
-updateTimerElem(t1, 10000, ClockMode.state(10000), false, false, true);
+
+
+
+
+updateTimerElem(t0, -1000, "flag", false, true, true);
+updateTimerElem(t1, 10000, "normal", false, false, true);
 updateMovCnt(movcnt, 4);
 
 
@@ -102,8 +105,8 @@ var ClockMode = {
     },
 
     currentTimeMode: function(){
-        if(this.start[0] == this.start[1] && this.inc[0] == this.inc[1]) return this.start[0]/(60*1000) + "+" + this.inc[0]/1000;
-        return this.start[0]/(60*1000) + "+" + this.inc[0]/1000 + ";" + this.start[0]/(60*1000) + "+" + this.inc[0]/1000;
+        if(this.start[0] == this.start[1] && this.inc[0] == this.inc[1]) return (this.start[0]/(60*1000) + "+" + this.inc[0]/1000);
+        return (this.start[0]/(60*1000) + "+" + this.inc[0]/1000 + ";" + this.start[0]/(60*1000) + "+" + this.inc[0]/1000);
     },
 
     state: function(t){

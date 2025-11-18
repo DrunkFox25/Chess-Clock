@@ -1,17 +1,82 @@
 //var DisplayW = window.innerWidth;
 //var DisplayH = window.ninnerHeight;
 
-import * as UI from "./ui.js";
+
+/*
+import from "./ui.js";
+*/
+
+
+
+
+
+function strTime(time){
+    if(time <= 1000) return Math.floor(time/10)/100;
+    if(time <= 10*1000) return Math.floor(time/100)/10;
+    if(time <= 60*1000) return Math.floor(time/1000);
+    if(time <= 3600*1000*200) return (Math.floor(time/60000) + ":" + (Math.floor(time/1000)%60).toString().padStart(2, "0"));
+    return "inf";
+}
+
+function timertext(time, showneg){
+    if(time < 0 && !showneg) return "<span class = \"material-symbols-rounded\">flag</span>";
+    return "<span>"+strTime(time)+"</span>";
+}
+
+
+
+
+
+
+function strBool(b){
+    if(b) return "true";
+    else return "false";
+}
+
+
+function setTextRot(elem0, elem1, rot){
+    elem0.dataset.textrot = rot;
+    elem1.dataset.textrot = -rot;
+}
+
+
+
+function updateTimerElem(elem, time, paused, active, showneg){
+    elem.innerHTML = timertext(time, showneg);
+    elem.dataset.paused = strBool(paused);
+    elem.dataset.active = strBool(active);
+    elem.dataset.state = ClockMode.state(time);
+}
+
+function updateMovCnt(elem, cnt){
+    elem.innerHTML = cnt;
+}
+
+function toggle(elem, values, success){
+    if(success) elem.innerHTML = values[(values.indexOf(elem.innerHTML)+1)%values.length];
+}
+
+/*
+export{
+    setTextRot,
+    toggle,
+    updateMovCnt,
+    updateTimerElem
+};*/
 
 //window.addEventListener("resize", myFunction);
 
-var r = document.querySelector(':root');
+//var r = document.querySelector(':root');
 var doc = document.documentElement;
 
 var t0 = document.getElementById("Timer0");
 var t1 = document.getElementById("Timer1");
-var pmenu = document.getElementById("playmenu");
 let ti = [t0, t1];
+
+t0.innerHTML = "<span>hhhhh</span>";
+
+
+var pmenu = document.getElementById("playmenu");
 
 var movcnt = document.getElementById("movcnt");
 
@@ -70,9 +135,9 @@ var Timer = {//fix states, do it, idk
     
 
     reload: function(){
-        UI.updateTimerElem(t0, this.t[0], this.paused, (this.tpos == 0), this.showneg);
-        UI.updateTimerElem(t1, this.t[1], this.paused, (this.tpos == 1), this.showneg);
-        UI.updateMovCnt(movcnt, this.hlfmovcnt);
+        updateTimerElem(t0, this.t[0], this.paused, (this.tpos == 0), this.showneg);
+        updateTimerElem(t1, this.t[1], this.paused, (this.tpos == 1), this.showneg);
+        updateMovCnt(movcnt, this.hlfmovcnt);
     },
 
     setTime: function(currt){this.flagtime = this.t[this.tpos]+currt;},
@@ -97,7 +162,7 @@ var Timer = {//fix states, do it, idk
             this.setTime();
                 this.Timer = setInterval(function(){
                 this.updateTime(performance.now());
-                UI.updateTimerElem(ti[this.tpos], this.t[this.tpos], false, true, this.showneg);
+                updateTimerElem(ti[this.tpos], this.t[this.tpos], false, true, this.showneg);
             }, this.dt);
         }
         else clearInterval(this.Timer);
@@ -157,7 +222,7 @@ var Timer = {//fix states, do it, idk
 var rot = 0;
 function rotate(){
     rot += 90;
-    UI.setTextRot(t0, t1, rot);
+    setTextRot(t0, t1, rot);
     Timer.reload();
 }
 
@@ -178,6 +243,9 @@ document.addEventListener('keyup',
 
 
 Timer.reset();
+
+
+
 
 /*
 document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim = "trigger1 trigger2"

@@ -13,8 +13,8 @@ import from "./ui.js";
 
 //window.addEventListener("resize", myFunction);
 
-//var r = document.querySelector(':root');
-//var doc = document.documentElement;
+var r = document.querySelector(':root');
+var doc = document.documentElement;
 
 var t0 = document.getElementById("Timer0");
 var t1 = document.getElementById("Timer1");
@@ -28,7 +28,7 @@ var pmenu = document.getElementById("playmenu");
 var movcnt = document.getElementById("movcnt");
 
 
-/*
+
 
 
 function strTime(time){
@@ -78,7 +78,7 @@ function toggle(elem, values, success){
 }
 
 
-
+/*
 
 
 

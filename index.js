@@ -78,6 +78,13 @@ function toggle(elem, values, success){
 }
 
 
+
+
+
+document.addEventListener('keyup',
+    event => {alert(event.code);}
+);
+
 /*
 
 

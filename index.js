@@ -9,6 +9,28 @@ import from "./ui.js";
 
 
 
+
+
+//window.addEventListener("resize", myFunction);
+
+//var r = document.querySelector(':root');
+var doc = document.documentElement;
+
+var t0 = document.getElementById("Timer0");
+var t1 = document.getElementById("Timer1");
+let ti = [t0, t1];
+
+t0.innerHTML = "<span>hhhhh</span>";
+
+
+var pmenu = document.getElementById("playmenu");
+
+var movcnt = document.getElementById("movcnt");
+
+
+
+
+
 function strTime(time){
     if(time <= 1000) return Math.floor(time/10)/100;
     if(time <= 10*1000) return Math.floor(time/100)/10;
@@ -54,33 +76,6 @@ function updateMovCnt(elem, cnt){
 function toggle(elem, values, success){
     if(success) elem.innerHTML = values[(values.indexOf(elem.innerHTML)+1)%values.length];
 }
-
-/*
-export{
-    setTextRot,
-    toggle,
-    updateMovCnt,
-    updateTimerElem
-};*/
-
-//window.addEventListener("resize", myFunction);
-
-//var r = document.querySelector(':root');
-var doc = document.documentElement;
-
-var t0 = document.getElementById("Timer0");
-var t1 = document.getElementById("Timer1");
-let ti = [t0, t1];
-
-t0.innerHTML = "<span>hhhhh</span>";
-
-
-var pmenu = document.getElementById("playmenu");
-
-var movcnt = document.getElementById("movcnt");
-
-
-
 
 
 

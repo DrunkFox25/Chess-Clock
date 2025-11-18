@@ -16,9 +16,8 @@ var movcnt = document.getElementById("movcnt");
 
 
 
-import {_toggle, updateMovCnt, updateTimerElem} from './ui.js';
+import {toggle, updateMovCnt, updateTimerElem} from './ui.js';
 
-const toggle = _toggle;
 
 
 

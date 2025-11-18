@@ -43,11 +43,14 @@ function updateMovCnt(elem, cnt){
 
 
 
-function _toggle(elem, values, success){
+function toggle(elem, values, success){
     if(success) elem.innerHTML = values[(values.indexOf(elem.innerHTML)+1)%values.length];
 }
 
 
 
-
-module.exports = {_toggle, updateMovCnt, updateTimerElem};
+export{
+    toggle,
+    updateMovCnt,
+    updateTimerElem
+};

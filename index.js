@@ -99,18 +99,14 @@ var ClockMode = {
     },
 
     currentTimeMode: function(){
-        if(start[0] == start[1] && inc[0] == inc[1]) return start[0]/(60*1000) + "+" + inc[0]/1000;
-        return start[0]/(60*1000) + "+" + inc[0]/1000 + ";" + start[0]/(60*1000) + "+" + inc[0]/1000;
+        if(this.start[0] == this.start[1] && this.inc[0] == this.inc[1]) return this.start[0]/(60*1000) + "+" + this.inc[0]/1000;
+        return this.start[0]/(60*1000) + "+" + this.inc[0]/1000 + ";" + this.start[0]/(60*1000) + "+" + this.inc[0]/1000;
     },
 
     state: function(t){
         if(t <= 0) return "flag";
-        if(t <= lowtime) return "lowtime";
+        if(t <= this.lowtime) return "lowtime";
         return "normal";
-    },
-
-    bound: function(t){
-        return (t == 0)||(t == lowtime);//checks if ti[tpos].dataset.state needs to update
     }
 };
 

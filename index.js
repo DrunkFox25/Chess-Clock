@@ -16,27 +16,8 @@ var movcnt = document.getElementById("movcnt");
 
 
 
+import {toggle, updateMovCnt, updateTimerElem} from 'ui.js';
 
-
-
-
-function strTime(time){
-    if(time <= 1000) return Math.floor(time/10)/100;
-    if(time <= 10*1000) return Math.floor(time/100)/10;
-    if(time <= 60*1000) return Math.floor(time/1000);
-    if(time <= 3600*1000*200) return (Math.floor(time/60000) + ":" + (Math.floor(time/1000)%60).toString().padStart(2, "0"));
-    return "inf";
-}
-
-function timertext(time, showneg){
-    if(time < 0 && !showneg) return "<span class = \"material-symbols-rounded\">flag</span>";
-    return "<span>"+strTime+"</span>";
-}
-
-/*
-function updateElem(elem){
-    elem.innerHTML = timertext(strTime(elem.dataset.time), elem.dataset.rot);
-}*/
 
 
 
@@ -67,36 +48,11 @@ var ClockMode = {
     }
 };
 
-function set(val, mode){
-    ti[val].dataset.state = mode;
-}
 
 
 
 
-function setTextRot(rot){
-    t0.dataset.textrot = rot;
-    t1.dataset.textrot = -rot;
-}
 
-
-function strBool(b){
-    if(b) return "true";
-    else return "false";
-}
-
-
-
-function updateTimerElem(elem, time, paused, active, showneg){
-    elem.innerHTML = timertext(time, showneg);
-    elem.dataset.paused = strBool(paused);
-    elem.dataset.active = strBool(active);
-    elem.dataset.state = ClockMode.state(time);
-}
-
-function updateMovCnt(elem, cnt){
-    elem.innerHTML = cnt;
-}
 
 
 
@@ -112,8 +68,8 @@ var Timer = {//fix states, do it, idk
     
 
     reload: function(){
-        updateElem(t0, this.t[0], this.paused, (this.tpos == 0), this.showneg);
-        updateElem(t1, this.t[1], this.paused, (this.tpos == 1), this.showneg);
+        updateTimerElem(t0, this.t[0], this.paused, (this.tpos == 0), this.showneg);
+        updateTimerElem(t1, this.t[1], this.paused, (this.tpos == 1), this.showneg);
         updateMovCnt(movcnt, hlfmovcnt);
     },
 
@@ -139,7 +95,7 @@ var Timer = {//fix states, do it, idk
             this.setTime();
                 this.Timer = setInterval(function(){
                 this.updateTime(performance.now());
-                updateElem(ti[this.tpos], this.t[this.tpos], false, true, this.showneg);
+                updateTimerElem(ti[this.tpos], this.t[this.tpos], false, true, this.showneg);
             }, this.dt);
         }
         else clearInterval(this.Timer);
@@ -189,7 +145,6 @@ var Timer = {//fix states, do it, idk
 
 
 
-function u(t){Timer.update(t);}
 
 
 
@@ -198,8 +153,8 @@ var rot = 0;
 
 function rotate(){
     rot += 90;
-    setTextRot(rot);
-    Timer.updateText(Timer);
+    setTextRot(t0, t1, rot);
+    Timer.reload();
 }
 
 
@@ -231,26 +186,37 @@ function spaceoff(){
 
 Timer.reset();
 spaceon();
+
+/*
 document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim = "trigger1 trigger2"
-                    const arr = elem.dataset.anim.split(" ");
-                    arr.forEach(function(Ani){
-                        elem.addEventListener(Ani, function(){
-                            elem.dataset.event = undefined;
-                            requestAnimationFrame(function(t){
-                                elem.dataset.event = Ani;
-                            });
-                        });
-                    });
-                });
+    const arr = elem.dataset.anim.split(" ");
+    arr.forEach(function(Ani){
+        elem.addEventListener(Ani, function(){
+            elem.dataset.event = undefined;
+            requestAnimationFrame(function(t){
+                elem.dataset.event = Ani;
+            });
+        });
+    });
+});*/
+
+document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim = "trigger1 trigger2"
+    elem.dataset.anim.split(" ").forEach(function(Ani){
+        elem.addEventListener(Ani, function(){
+            elem.dataset.event = undefined;
+            requestAnimationFrame(function(t){
+                elem.dataset.event = Ani;
+            });
+        });
+    });
+});
 
 
 
 
 
 
-function toggle(elem, values, success){
-    if(success) elem.innerHTML = values[(values.indexOf(elem.innerHTML)+1)%values.length];
-}
+
 
 
 

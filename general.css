@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=close,flag,fullscreen,fullscreen_exit,more_time,pause,play_arrow,punch_clock,refresh,rotate_90_degrees_cw,rotate_right,save_clock,schedual,settings,volume_off,volume_up&display=block");
+
+
+
+@keyframes rot360{
+	from{rotate: 0deg;}
+	to{rotate: 360deg;}
+}
+
+@property --trans{
+	syntax: "<transform-function>";
+ 	initial-value: "";
+	inherits: true;
+}
+
+/*ex.
+
+.box{
+	--trans: rotate(attr(data-trans deg, 0deg));
+}
+
+.box *{
+    transform: var(--trans);
+}
+*/
+
+@property --textrot{
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: true;
+}
+
+
+
+.centerContent{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

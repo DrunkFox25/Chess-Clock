@@ -1,5 +1,4 @@
 
-
 function strTime(time){
     if(time <= 1000) return Math.floor(time/10)/100;
     if(time <= 10*1000) return Math.floor(time/100)/10;
@@ -9,7 +8,7 @@ function strTime(time){
 }
 
 function timertext(time, showneg){
-    if(time < 0 && !showneg) return "<span class = \"material-symbols-rounded\">flag</span>";
+    if(time < 0 && showneg) return "<span class = \"material-symbols-rounded\">flag</span>";
     return "<span>"+strTime(time)+"</span>";
 }
 
@@ -24,18 +23,18 @@ function strBool(b){
 }
 
 
+
+
 function setTextRot(elem0, elem1, rot){
     elem0.dataset.textrot = rot;
     elem1.dataset.textrot = -rot;
 }
 
-
-
-function updateTimerElem(elem, time, paused, active, showneg){
+function updateTimerElem(elem, time, mode, paused, active, showneg){
     elem.innerHTML = timertext(time, showneg);
     elem.dataset.paused = strBool(paused);
     elem.dataset.active = strBool(active);
-    elem.dataset.state = ClockMode.state(time);
+    elem.dataset.state = mode;
 }
 
 function updateMovCnt(elem, cnt){
@@ -45,7 +44,6 @@ function updateMovCnt(elem, cnt){
 function toggle(elem, values, success){
     if(success) elem.innerHTML = values[(values.indexOf(elem.innerHTML)+1)%values.length];
 }
-
 
 export{
     setTextRot,

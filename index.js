@@ -16,7 +16,10 @@ var movcnt = document.getElementById("movcnt");
 
 
 
-import {toggle, updateMovCnt, updateTimerElem} from 'ui.js';
+import {_toggle, updateMovCnt, updateTimerElem} from './ui.js';
+
+const toggle = _toggle;
+
 
 
 
@@ -210,7 +213,6 @@ document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim 
         });
     });
 });
-
 
 
 

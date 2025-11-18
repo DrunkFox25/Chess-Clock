@@ -62,11 +62,11 @@ function setTextRot(elem0, elem1, rot){
 
 
 
-function updateTimerElem(elem, time, paused, active, showneg){
+function updateTimerElem(elem, time, mode, paused, active, showneg){
     elem.innerHTML = timertext(time, showneg);
     elem.dataset.paused = strBool(paused);
     elem.dataset.active = strBool(active);
-    elem.dataset.state = ClockMode.state(time);
+    elem.dataset.state = mode;
 }
 
 function updateMovCnt(elem, cnt){
@@ -77,8 +77,8 @@ function toggle(elem, values, success){
     if(success) elem.innerHTML = values[(values.indexOf(elem.innerHTML)+1)%values.length];
 }
 
-updateTimerElem(t0, -1000, false, true, true);
-updateTimerElem(t1, 10000, false, false, true);
+updateTimerElem(t0, -1000, ClockMode.state(-1000), false, true, true);
+updateTimerElem(t1, 10000, ClockMode.state(10000), false, false, true);
 updateMovCnt(movcnt, 4);
 
 
@@ -87,7 +87,7 @@ document.addEventListener('keyup',
     event => {alert(event.code);}
 );
 
-/*
+
 
 
 
@@ -114,7 +114,7 @@ var ClockMode = {
 };
 
 
-
+/*
 
 
 

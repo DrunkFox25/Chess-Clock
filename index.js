@@ -8,7 +8,6 @@ import from "./ui.js";
 
 
 
-alert('hello');
 
 function strTime(time){
     if(time <= 1000) return Math.floor(time/10)/100;
@@ -189,13 +188,13 @@ var Timer = {//fix states, do it, idk
     },
 
     event : function(val){
-        if(val === "space" && !this.spaceswitch) return;
+        if(val == "space" && !this.spaceswitch) return;
 
         if(this.paused){
             if(this.tpos == 2){
-                if(val === "space") return;
-                if(val === "Timer0") this.tpos = 1;
-                if(val === "Timer1") this.tpos = 0;
+                if(val == "space") return;
+                if(val == "Timer0") this.tpos = 1;
+                if(val == "Timer1") this.tpos = 0;
             }
 
             this.toggleplay();
@@ -203,8 +202,8 @@ var Timer = {//fix states, do it, idk
             return;
         }
 
-        if(val === "Timer0" && this.tpos == 1) return;
-        if(val === "Timer1" && this.tpos == 0) return;
+        if(val == "Timer0" && this.tpos == 1) return;
+        if(val == "Timer1" && this.tpos == 0) return;
         
         this.switch();
     }
@@ -212,7 +211,7 @@ var Timer = {//fix states, do it, idk
 
 
 
-
+Timer.reload();
 
 /*
 var rot = 0;

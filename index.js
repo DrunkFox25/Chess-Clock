@@ -155,8 +155,6 @@ var Timer = {//fix states, do it, idk
 
 
 var rot = 0;
-//setTimerRotation(0);
-
 function rotate(){
     rot += 90;
     UI.setTextRot(t0, t1, rot);
@@ -193,7 +191,7 @@ document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim 
         });
     });
 });*/
-
+/*
 document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim = "trigger1 trigger2"
     elem.dataset.anim.split(" ").forEach(function(Ani){
         elem.addEventListener(Ani, function(){
@@ -240,3 +238,4 @@ function opensettings(){
     smenu.hidden = !smenu.hidden;
 }
 
+*/

@@ -4,6 +4,8 @@
 //window.addEventListener("resize", myFunction);
 
 
+import * as UI from './ui.js';
+
 
 var r = document.querySelector(':root');
 var doc = document.documentElement;
@@ -14,9 +16,6 @@ let ti = [t0, t1];
 
 var movcnt = document.getElementById("movcnt");
 
-
-
-import {toggle, updateMovCnt, updateTimerElem} from './ui.js';
 
 
 
@@ -66,17 +65,18 @@ var Timer = {//fix states, do it, idk
     hlfmovcnt: 0,
     showneg: false,//needs to toggle if clicks on button when
     flagtime: -1,
+    spaceswitch: true,
 
     
 
     reload: function(){
-        updateTimerElem(t0, this.t[0], this.paused, (this.tpos == 0), this.showneg);
-        updateTimerElem(t1, this.t[1], this.paused, (this.tpos == 1), this.showneg);
-        updateMovCnt(movcnt, hlfmovcnt);
+        UI.updateTimerElem(t0, this.t[0], this.paused, (this.tpos == 0), this.showneg);
+        UI.updateTimerElem(t1, this.t[1], this.paused, (this.tpos == 1), this.showneg);
+        UI.updateMovCnt(movcnt, this.hlfmovcnt);
     },
 
-    setTime: function(currt){flagtime = this.t[this.tpos]+currt;},
-    updateTime: function(currt){this.t[this.tpos] = flagtime-currt;},
+    setTime: function(currt){this.flagtime = this.t[this.tpos]+currt;},
+    updateTime: function(currt){this.t[this.tpos] = this.flagtime-currt;},
 
 
     reset : function(){
@@ -97,7 +97,7 @@ var Timer = {//fix states, do it, idk
             this.setTime();
                 this.Timer = setInterval(function(){
                 this.updateTime(performance.now());
-                updateTimerElem(ti[this.tpos], this.t[this.tpos], false, true, this.showneg);
+                UI.updateTimerElem(ti[this.tpos], this.t[this.tpos], false, true, this.showneg);
             }, this.dt);
         }
         else clearInterval(this.Timer);
@@ -117,29 +117,33 @@ var Timer = {//fix states, do it, idk
         var Now = performance.now();
         
         this.updateTime(Now);
-
+        
         this.tpos = 1-this.tpos;//switch players
 
         this.setTime(Now);
 
+        this.updateTime(performance.now());
+
         this.reload();
     },
 
-    press : function(val){
+    event : function(val){
+        if(val === "space" && !this.spaceswitch) return;
+
         if(this.paused){
             if(this.tpos == 2){
-                if(val == "space") return;
-                if(val == "Timer0") this.tpos = 1;
-                if(val == "Timer1") this.tpos = 0;
+                if(val === "space") return;
+                if(val === "Timer0") this.tpos = 1;
+                if(val === "Timer1") this.tpos = 0;
             }
 
-            toggleplay();
+            this.toggleplay();
 
             return;
         }
 
-        if(val == "Timer0" && this.tpos == 1) return;
-        if(val == "Timer1" && this.tpos == 0) return;
+        if(val === "Timer0" && this.tpos == 1) return;
+        if(val === "Timer1" && this.tpos == 0) return;
         
         this.switch();
     }
@@ -155,39 +159,27 @@ var rot = 0;
 
 function rotate(){
     rot += 90;
-    setTextRot(t0, t1, rot);
+    UI.setTextRot(t0, t1, rot);
     Timer.reload();
 }
 
 
-function f(param){Timer.press(param.id);/*onclick = f(this)*/}
+function f(param){Timer.event(param.id);/*onclick = f(this)*/}
 
 
 
 
 
+document.addEventListener('keyup',
+    event => {
+        if (event.code === 'Space') Timer.event("space");
+    }
+);
 
-var Slisten = 0;
-function spaceon(){
-    if(Slisten != 0) return;
-    Slisten = document.addEventListener('keyup',
-        event => {
-            if (event.code === 'Space') {
-                Timer.press("space");
-            }
-        }
-    );
-}
-
-function spaceoff(){
-    document.removeEventListener(Slisten);
-    Slisten = 0;
-}
 
 
 
 Timer.reset();
-spaceon();
 
 /*
 document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim = "trigger1 trigger2"

@@ -16,15 +16,17 @@ function timertext(time, showneg){
 
 
 
-function setTextRot(elem0, elem1, rot){
-    elem0.dataset.textrot = rot;
-    elem1.dataset.textrot = -rot;
-}
 
 
 function strBool(b){
     if(b) return "true";
     else return "false";
+}
+
+
+function setTextRot(elem0, elem1, rot){
+    elem0.dataset.textrot = rot;
+    elem1.dataset.textrot = -rot;
 }
 
 
@@ -40,9 +42,6 @@ function updateMovCnt(elem, cnt){
     elem.innerHTML = cnt;
 }
 
-
-
-
 function toggle(elem, values, success){
     if(success) elem.innerHTML = values[(values.indexOf(elem.innerHTML)+1)%values.length];
 }
@@ -50,6 +49,7 @@ function toggle(elem, values, success){
 
 
 export{
+    setTextRot,
     toggle,
     updateMovCnt,
     updateTimerElem

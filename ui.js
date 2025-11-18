@@ -22,9 +22,6 @@ function strBool(b){
     else return "false";
 }
 
-
-
-
 function setTextRot(elem0, elem1, rot){
     elem0.dataset.textrot = rot;
     elem1.dataset.textrot = -rot;

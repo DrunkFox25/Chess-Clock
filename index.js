@@ -4,7 +4,6 @@
 //window.addEventListener("resize", myFunction);
 
 
-import * as UI from './ui.js';
 
 
 var r = document.querySelector(':root');
@@ -70,9 +69,9 @@ var Timer = {//fix states, do it, idk
     
 
     reload: function(){
-        UI.updateTimerElem(t0, this.t[0], this.paused, (this.tpos == 0), this.showneg);
-        UI.updateTimerElem(t1, this.t[1], this.paused, (this.tpos == 1), this.showneg);
-        UI.updateMovCnt(movcnt, this.hlfmovcnt);
+        updateTimerElem(t0, this.t[0], this.paused, (this.tpos == 0), this.showneg);
+        updateTimerElem(t1, this.t[1], this.paused, (this.tpos == 1), this.showneg);
+        updateMovCnt(movcnt, this.hlfmovcnt);
     },
 
     setTime: function(currt){this.flagtime = this.t[this.tpos]+currt;},
@@ -97,7 +96,7 @@ var Timer = {//fix states, do it, idk
             this.setTime();
                 this.Timer = setInterval(function(){
                 this.updateTime(performance.now());
-                UI.updateTimerElem(ti[this.tpos], this.t[this.tpos], false, true, this.showneg);
+                updateTimerElem(ti[this.tpos], this.t[this.tpos], false, true, this.showneg);
             }, this.dt);
         }
         else clearInterval(this.Timer);
@@ -159,7 +158,7 @@ var rot = 0;
 
 function rotate(){
     rot += 90;
-    UI.setTextRot(t0, t1, rot);
+    setTextRot(t0, t1, rot);
     Timer.reload();
 }
 

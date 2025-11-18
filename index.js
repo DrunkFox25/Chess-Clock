@@ -1,6 +1,8 @@
 //var DisplayW = window.innerWidth;
 //var DisplayH = window.innerHeight;
 
+import * as UI from "./ui";
+
 //window.addEventListener("resize", myFunction);
 
 
@@ -11,9 +13,11 @@ var doc = document.documentElement;
 
 var t0 = document.getElementById("Timer0");
 var t1 = document.getElementById("Timer1");
+var pmenu = document.getElementById("playmenu");
 let ti = [t0, t1];
 
 var movcnt = document.getElementById("movcnt");
+
 
 
 
@@ -69,9 +73,9 @@ var Timer = {//fix states, do it, idk
     
 
     reload: function(){
-        updateTimerElem(t0, this.t[0], this.paused, (this.tpos == 0), this.showneg);
-        updateTimerElem(t1, this.t[1], this.paused, (this.tpos == 1), this.showneg);
-        updateMovCnt(movcnt, this.hlfmovcnt);
+        UI.updateTimerElem(t0, this.t[0], this.paused, (this.tpos == 0), this.showneg);
+        UI.updateTimerElem(t1, this.t[1], this.paused, (this.tpos == 1), this.showneg);
+        UI.updateMovCnt(movcnt, this.hlfmovcnt);
     },
 
     setTime: function(currt){this.flagtime = this.t[this.tpos]+currt;},
@@ -96,7 +100,7 @@ var Timer = {//fix states, do it, idk
             this.setTime();
                 this.Timer = setInterval(function(){
                 this.updateTime(performance.now());
-                updateTimerElem(ti[this.tpos], this.t[this.tpos], false, true, this.showneg);
+                UI.updateTimerElem(ti[this.tpos], this.t[this.tpos], false, true, this.showneg);
             }, this.dt);
         }
         else clearInterval(this.Timer);
@@ -158,7 +162,7 @@ var rot = 0;
 
 function rotate(){
     rot += 90;
-    setTextRot(t0, t1, rot);
+    UI.setTextRot(t0, t1, rot);
     Timer.reload();
 }
 
@@ -220,7 +224,24 @@ function togglemute(){
 
 
 
+pmenu.addEventListener('click',
+    event => {
+        var elem = event.target;
+        var id = elem.id;
+
+        if(id == "playbutton") toggle(elem, ['pause', 'play_arrow'], Timer.toggleplay());
+        else if(id == "settingsbutton") opensettings('propably need to pause automaticly for this');
+        else if(id == "refreshbutton") Timer.reset();
+        else if(id === "mutebutton") toggle(elem, ['volume_up', 'volume_off'], togglemute());
+    }
+);
+
+
+
 var smenu = document.getElementById("settingsmenu");
 function opensettings(){
     smenu.hidden = !smenu.hidden;
 }
+
+
+UI.a('x');

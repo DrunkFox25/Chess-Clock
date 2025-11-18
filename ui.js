@@ -46,9 +46,10 @@ function toggle(elem, values, success){
     if(success) elem.innerHTML = values[(values.indexOf(elem.innerHTML)+1)%values.length];
 }
 
-
+function a(x){alert(x);}
 
 export{
+    a,
     setTextRot,
     toggle,
     updateMovCnt,

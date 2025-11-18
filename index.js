@@ -1,7 +1,7 @@
 //var DisplayW = window.innerWidth;
 //var DisplayH = window.innerHeight;
 
-import * as UI from "./ui";
+import * as UI from "./ui.js";
 
 //window.addEventListener("resize", myFunction);
 

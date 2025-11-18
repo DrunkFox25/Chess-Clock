@@ -1,12 +1,9 @@
 //var DisplayW = window.innerWidth;
-//var DisplayH = window.innerHeight;
+//var DisplayH = window.ninnerHeight;
 
 import * as UI from "./ui.js";
 
 //window.addEventListener("resize", myFunction);
-
-
-
 
 var r = document.querySelector(':root');
 var doc = document.documentElement;
@@ -243,5 +240,3 @@ function opensettings(){
     smenu.hidden = !smenu.hidden;
 }
 
-
-UI.a('x');

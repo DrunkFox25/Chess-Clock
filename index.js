@@ -238,10 +238,8 @@ function f(param){
 
 document.addEventListener('keyup',
     event => {
-        alert(cmode.value);
-        alert(event.code.toString());
         if(event.code == 'Space') Timer.event("space");
-        if(event.code == 'Enter' || event.key == 'Enter'){ClockMode.setTimeMode(cmode.value); alert(cmode.value);}
+        if(event.code == 'Enter' || event.key == 'Enter'){ClockMode.setTimeMode(cmode.value);}
     }
 );
 /*

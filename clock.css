@@ -33,12 +33,11 @@
     
     background-color: #7f7f7f;
 }
-
+/*
 #playmenu {
-	opacity: 0;
-	/*background-color: #ffffff;*/
+	background-color: #ffffff;
 }
-
+*/
 #Timer0, #Timer1, #playmenu {
 	position: absolute;
 	bottom: 0%;

@@ -105,7 +105,7 @@ var Timer = {
     setTime: function(){
         this.flagtime = this.t[this.tpos]+this.currt;
     },
-    updateTime: function(){
+    updateTheTime: function(){//The is in their to try and prevent browser hissy fit
         this.mTime();
         this.t[this.tpos] = this.flagtime-this.currt;
     },
@@ -132,7 +132,7 @@ var Timer = {
             this.setTime();
 
             this.Timer = setInterval(function(){
-                this.updateTime();
+                this.updateTheTime();
                 this.updateText(this.tpos);
             }, this.dt);
         }
@@ -148,7 +148,7 @@ var Timer = {
     switch: function(){
         this.hlfmovcnt += 1;
         
-        this.updateTime();
+        this.updateTheTime();
 
         this.t[this.tpos] += ClockMode.inc[this.tpos];
         
@@ -168,8 +168,8 @@ var Timer = {
             if(this.tpos == 2){
                 if(val == "space") return;
                 if(val == this.tpos) return;
+                this.tpos = 1-val;
             }
-            this.tpos = val;
 
             this.toggleplay();
 

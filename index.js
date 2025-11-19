@@ -43,18 +43,18 @@ var ClockMode = {
     lowtime: 10*1000,
 
     startTime: function(index){
-        if(Timer.start[index] <= 0) return Timer.inc[index];
-        return Timer.start[index];
+        if(ClockMode.start[index] <= 0) return ClockMode.inc[index];
+        return ClockMode.start[index];
     },
 
     currentTimeMode: function(){
-        if(Timer.start[0] == Timer.start[1] && Timer.inc[0] == Timer.inc[1]) return (Timer.start[0]/(60*1000) + "+" + Timer.inc[0]/1000);
-        return (Timer.start[0]/(60*1000) + "+" + Timer.inc[0]/1000 + ";" + Timer.start[0]/(60*1000) + "+" + Timer.inc[0]/1000);
+        if(ClockMode.start[0] == ClockMode.start[1] && ClockMode.inc[0] == ClockMode.inc[1]) return (ClockMode.start[0]/(60*1000) + "+" + ClockMode.inc[0]/1000);
+        return (ClockMode.start[0]/(60*1000) + "+" + ClockMode.inc[0]/1000 + ";" + ClockMode.start[0]/(60*1000) + "+" + ClockMode.inc[0]/1000);
     },
 
     state: function(t){
         if(t <= 0) return "flag";
-        if(t <= Timer.lowtime) return "lowtime";
+        if(t <= ClockMode.lowtime) return "lowtime";
         return "normal";
     }
 };

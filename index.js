@@ -239,7 +239,7 @@ function f(param){
 document.addEventListener('keyup',
     event => {
         if(event.code == 'Space') Timer.event("space");
-        if(event.code == 'Enter' || event.key == 'Enter'){ClockMode.setTimeMode(cmode.value);}
+        if(event.code == 'Enter' || event.key == 'Enter') ClockMode.setTimeMode(cmode.value);``
     }
 );
 /*

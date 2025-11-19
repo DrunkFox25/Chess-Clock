@@ -117,7 +117,7 @@
 }
 
 .Timer[data-active = "false"]{
-    background-color: #00ff00;
+    background-color: #007f00;
 }
 
 .Timer[data-paused = "true"]{

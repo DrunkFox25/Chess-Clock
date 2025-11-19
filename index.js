@@ -31,7 +31,7 @@ t0.dataset.state = "flag";
 
 
 
-
+alert(t1.dataset.state);
 
 
 
@@ -40,8 +40,8 @@ UI.updateTimerElem(t0, -1000, true, "flag", UI.strBool(false), UI.strBool(true))
 UI.updateTimerElem(t1, 10000, true, "lowtime", UI.strBool(false), UI.strBool(false));
 UI.updateMovCnt(movcnt, 4);
 
-
-
+alert(t1.dataset.state);
+/*
 document.addEventListener('keyup',
     event => {alert(event.code);}
 );

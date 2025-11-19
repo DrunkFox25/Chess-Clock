@@ -25,8 +25,11 @@ let ti = [t0, t1];
 
 
 var pmenu = document.getElementById("playmenu");
-
 var movcnt = document.getElementById("movcnt");
+
+
+var smenu = document.getElementById("settingsmenu");
+
 
 
 
@@ -75,20 +78,25 @@ var Timer = {//fix states, do it, idk
     spaceswitch: true,
     currt: 0,
 
-    
+
+
+    updateText: function(i){
+        ti[i].innerHTML = UI.timertext(this.t[i], this.showneg);
+        ti[i].dataset.state = ClockMode.state(this.t[i]);
+    },
 
     reload: function(){
-        t0.innerHTML = UI.timertext(this.t[0], this.showneg);
-        t0.dataset.state = ClockMode.state(this.t[0]);
+        this.updateText(0);
         t0.dataset.paused = UI.strBool(this.paused);
         t0.dataset.active = UI.strBool(this.tpos == 0);
 
-        t1.innerHTML = UI.timertext(this.t[1], this.showneg);
-        t1.dataset.state = ClockMode.state(this.t[1]);
+        this.updateText(1);
         t1.dataset.paused = UI.strBool(this.paused);
         t1.dataset.active = UI.strBool(this.tpos == 1);
 
         movcnt.innerHTML = this.hlfmovcnt;
+
+        return;
     },
 
     mTime: function(){
@@ -112,6 +120,8 @@ var Timer = {//fix states, do it, idk
         this.t[1] = ClockMode.startTime(1);
 
         this.reload();
+
+        return;
     },
 
     toggleplay: function(){
@@ -123,12 +133,10 @@ var Timer = {//fix states, do it, idk
 
             this.Timer = setInterval(function(){
                 this.updateTime();
-
-                ti[this.tpos].innerHTML = UI.timertext(this.t[this.tpos], this.showneg);
-                ti[this.tpos].dataset.state = ClockMode.state(this.t[this.tpos]);
+                this.updateText(this.tpos);
             }, this.dt);
         }
-        else clearInterval(this.Timer);
+        else{clearInterval(this.Timer);}
 
         this.paused = !this.paused;
 
@@ -148,9 +156,9 @@ var Timer = {//fix states, do it, idk
 
         this.setTime();
 
-        this.updateTime();
-
         this.reload();
+
+        return;
     },
 
     event : function(val){
@@ -172,12 +180,11 @@ var Timer = {//fix states, do it, idk
         if(val == "Timer1" && this.tpos == 0) return;
         
         this.switch();
+
+        return;
     }
 };
 
-
-
-Timer.reload();
 
 
 var rot = 0;
@@ -258,18 +265,21 @@ pmenu.addEventListener('click',
         var elem = event.target;
         var id = elem.id;
 
-        if(id == "playbutton") toggle(elem, ['pause', 'play_arrow'], Timer.toggleplay());
-        else if(id == "settingsbutton") opensettings('propably need to pause automaticly for this');
+        if(id == "playbutton") UI.toggle(elem, ['pause', 'play_arrow'], Timer.toggleplay());
+        else if(id == "settingsbutton") opensettings();
         else if(id == "refreshbutton") Timer.reset();
-        else if(id === "mutebutton") toggle(elem, ['volume_up', 'volume_off'], togglemute());
+        else if(id === "mutebutton") UI.toggle(elem, ['volume_up', 'volume_off'], togglemute());
     }
 );
 
 
 
-var smenu = document.getElementById("settingsmenu");
 function opensettings(){
-    smenu.hidden = !smenu.hidden;
+    if(smenu.hidden){
+        smenu.hidden = true;
+        if(!Timer.paused) Timer.toggleplay();
+    }
+    else smenu.hidden = true;
 }
 
 

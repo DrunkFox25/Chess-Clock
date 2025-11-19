@@ -26,5 +26,5 @@ function toggle(elem, values, success){
 export{
     timertext,
     strBool,
-    toggle,
+    toggle
 };

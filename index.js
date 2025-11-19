@@ -30,20 +30,6 @@ var movcnt = document.getElementById("movcnt");
 
 
 
-t0.innerHTML = "<span>hhhhh</span>";
-t0.dataset.state = "flag";
-
-
-
-t0.innerHTML = UI.timertext(-1000);
-
-t1.innerHTML = UI.timertext(10000);
-t1.dataset.state = "lowtime";
-
-movcnt.innerHTML = 4;
-
-
-
 
 
 

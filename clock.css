@@ -70,6 +70,15 @@
 }
 
 
+@keyframes rot360{
+	from{rotate: 0deg;}
+	to{rotate: 360deg;}
+}
+
+#rbutton{
+	animation-name: none;
+}
+
 #rbutton[data-event = "click"]{
 	animation-timing-function: linear;
 	animation-duration: 0.2s;

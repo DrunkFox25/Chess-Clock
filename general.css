@@ -11,11 +11,6 @@ span.material-symbols-rounded{
 	font-size: 48px;
 }
 
-@keyframes rot360{
-	from{rotate: 0deg;}
-	to{rotate: 360deg;}
-}
-
 @property --trans{
 	syntax: "<transform-function>";
  	initial-value: "";

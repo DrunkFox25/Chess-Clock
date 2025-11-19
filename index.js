@@ -266,6 +266,9 @@ function opensettings(){
 
 
 
+window.f = f;
+window.rotate = rotate;
+
 export {
     f,
     rotate,

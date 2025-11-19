@@ -92,12 +92,12 @@ var Timer = {//fix states, do it, idk
 
     reload: function(){
         t0.innerHTML = UI.timertext(this.t[0], this.showneg);
-        t0.dataset.state = ClockMode(this.t[0]);
+        t0.dataset.state = ClockMode.state(this.t[0]);
         t0.dataset.paused = UI.strBool(this.paused);
         t0.dataset.active = UI.strBool(this.tpos == 0);
 
         t1.innerHTML = UI.timertext(this.t[1], this.showneg);
-        t1.dataset.state = ClockMode(this.t[1]);
+        t1.dataset.state = ClockMode.state(this.t[1]);
         t1.dataset.paused = UI.strBool(this.paused);
         t1.dataset.active = UI.strBool(this.tpos == 1);
 
@@ -128,7 +128,7 @@ var Timer = {//fix states, do it, idk
                 this.updateTime(performance.now());
 
                 ti[this.tpos].innerHTML = UI.timertext(this.t[this.tpos], this.showneg);
-                ti[this.tpos].dataset.state = ClockMode(this.t[this.tpos]);
+                ti[this.tpos].dataset.state = ClockMode.state(this.t[this.tpos]);
             }, this.dt);
         }
         else clearInterval(this.Timer);

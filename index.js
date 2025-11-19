@@ -76,7 +76,7 @@ var ClockMode = {
 
         if(arr.length == 1) arr.push(arr[0]);
 
-        for(var i = 0; i <= 2; i++){
+        for(var i = 0; i <= 2; i+=1){
             const TT = Tstr(arr[i]);
             start[i] = TT[0];
             inc[i] = TT[1];
@@ -239,7 +239,7 @@ function f(param){
 document.addEventListener('keyup',
     event => {
         if(event.code == 'Space') Timer.event("space");
-        if(event.code == 'Enter') ClockMode.setTimeMode(cmode.value);
+        if(event.code == 'Enter'){ClockMode.setTimeMode(cmode.value); alert(cmode.value);}
     }
 );
 /*
@@ -275,9 +275,10 @@ document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim 
     elem.dataset.anim.split(" ").forEach(function(Ani){
         elem.addEventListener(Ani, function(){
             elem.dataset.event = undefined;
-            requestAnimationFrame(function(t){
+            setTimeout(function(){
+                alert('amin');
                 elem.dataset.event = Ani;
-            });
+            }, 0);
         });
     });
 });

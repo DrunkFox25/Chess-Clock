@@ -73,6 +73,7 @@ var Timer = {//fix states, do it, idk
     showneg: false,//needs to toggle if clicks on button when
     flagtime: -1,
     spaceswitch: true,
+    currt: 0,
 
     
 
@@ -90,8 +91,16 @@ var Timer = {//fix states, do it, idk
         movcnt.innerHTML = this.hlfmovcnt;
     },
 
-    setTime: function(currt){this.flagtime = this.t[this.tpos]+currt;},
-    updateTime: function(currt){this.t[this.tpos] = this.flagtime-currt;},
+    mTime: function(){
+        this.currt = performance.now();
+    },
+    setTime: function(){
+        this.flagtime = this.t[this.tpos]+this.currt;
+    },
+    updateTime: function(){
+        this.mTime();
+        this.t[this.tpos] = this.flagtime-this.currt;
+    },
 
 
     reset : function(){
@@ -109,9 +118,11 @@ var Timer = {//fix states, do it, idk
         if(this.tpos == 2) return false;
 
         if(this.paused){
-            this.setTime(performance.now());
+            this.mTime();
+            this.setTime();
+
             this.Timer = setInterval(function(){
-                this.updateTime(performance.now());
+                this.updateTime();
 
                 ti[this.tpos].innerHTML = UI.timertext(this.t[this.tpos], this.showneg);
                 ti[this.tpos].dataset.state = ClockMode.state(this.t[this.tpos]);
@@ -128,18 +139,16 @@ var Timer = {//fix states, do it, idk
 
     switch: function(){
         this.hlfmovcnt += 1;
+        
+        this.updateTime();
 
         this.t[this.tpos] += ClockMode.inc[this.tpos];
-
-        var Now = performance.now();
-        
-        this.updateTime(Now);
         
         this.tpos = 1-this.tpos;//switch players
 
-        this.setTime(Now);
+        this.setTime();
 
-        this.updateTime(performance.now());
+        this.updateTime();
 
         this.reload();
     },
@@ -150,8 +159,8 @@ var Timer = {//fix states, do it, idk
         if(this.paused){
             if(this.tpos == 2){
                 if(val == "space") return;
-                if(val == "Timer0") this.tpos = 1;
-                if(val == "Timer1") this.tpos = 0;
+                if(val == "Timer0" && this.tpos == 0) return;
+                if(val == "Timer1" && this.tpos == 1) return;
             }
 
             this.toggleplay();

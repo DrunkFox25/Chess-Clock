@@ -263,3 +263,10 @@ function opensettings(){
     smenu.hidden = !smenu.hidden;
 }
 
+
+
+
+export {
+    f,
+    rotate,
+}

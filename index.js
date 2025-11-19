@@ -108,6 +108,7 @@ var Timer = {
     flagtime: -1,
     spaceswitch: true,
     currt: 0,
+    Timer: 0,
 
 
 
@@ -238,14 +239,14 @@ function f(param){
 document.addEventListener('keyup',
     event => {
         if(event.code == 'Space') Timer.event("space");
-    }
-);
-
-cmode.addEventListener('keyup',
-    event => {
         if(event.code == 'Enter') ClockMode.setTimeMode(cmode.value);
     }
 );
+/*
+cmode.addEventListener('keyup',
+    event => {
+    }
+);*/
 
 
 

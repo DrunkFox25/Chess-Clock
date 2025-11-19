@@ -238,8 +238,9 @@ function f(param){
 
 document.addEventListener('keyup',
     event => {
+        alert(event.code);
         if(event.code == 'Space') Timer.event("space");
-        if(event.code == 'Enter'){ClockMode.setTimeMode(cmode.value); alert(cmode.value);}
+        if(event.code == 'Enter' || event.key == 'Enter'){ClockMode.setTimeMode(cmode.value); alert(cmode.value);}
     }
 );
 /*
@@ -274,11 +275,11 @@ document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim 
 document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim = "trigger1 trigger2"
     elem.dataset.anim.split(" ").forEach(function(Ani){
         elem.addEventListener(Ani, function(){
-            elem.dataset.event = undefined;
+            elem.dataset.event = "";
             setTimeout(function(){
-                alert('amin');
+                alert();
                 elem.dataset.event = Ani;
-            }, 0);
+            }, 10);
         });
     });
 });

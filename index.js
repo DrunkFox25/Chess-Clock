@@ -167,17 +167,16 @@ var Timer = {
         if(this.paused){
             if(this.tpos == 2){
                 if(val == "space") return;
-                if(val == "Timer0" && this.tpos == 0) return;
-                if(val == "Timer1" && this.tpos == 1) return;
+                if(val == this.tpos) return;
             }
+            this.tpos = val;
 
             this.toggleplay();
 
             return;
         }
 
-        if(val == "Timer0" && this.tpos == 1) return;
-        if(val == "Timer1" && this.tpos == 0) return;
+        if(1-val == this.tpos) return;
         
         this.switch();
 
@@ -198,7 +197,8 @@ function rotate(){
 
 
 function f(param){
-    Timer.event(param.id);
+    if(param.id == "Timer0") Timer.event(0);
+    if(param.id == "Timer1") Timer.event(1);
 }//onclick f(this)
 
 

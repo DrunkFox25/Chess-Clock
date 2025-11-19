@@ -31,17 +31,17 @@ t0.dataset.state = "flag";
 
 
 
-alert(t1.dataset.state);
+t0.innerHTML = UI.timertext(-1000);
+
+t1.innerHTML = UI.timertext(10000);
+t1.dataset.state = "lowtime";
+
+movcnt.innerHTML = 4;
 
 
 
 
-UI.updateTimerElem(t0, -1000, true, "flag", UI.strBool(false), UI.strBool(true));
-UI.updateTimerElem(t1, 10000, true, "lowtime", UI.strBool(false), UI.strBool(false));
-UI.updateMovCnt(movcnt, 4);
 
-alert(t1.dataset.state);
-/*
 document.addEventListener('keyup',
     event => {alert(event.code);}
 );

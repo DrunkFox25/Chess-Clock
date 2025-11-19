@@ -7,28 +7,20 @@ function strTime(time){
     return "inf";
 }
 
-function timertext(time, showneg){
-    if(time < 0 && !showneg) return "<span class = \"material-symbols-rounded\">flag</span>";
+function timertext(time){
+    if(time == "flag") return "<span class = \"material-symbols-rounded\">flag</span>";
     return "<span>"+strTime(time)+"</span>";
 }
-
-
-
-
-
 
 function strBool(b){
     if(b) return "true";
     else return "false";
 }
 
-function setTextRot(elem0, elem1, rot){
-    elem0.dataset.textrot = rot;
-    elem1.dataset.textrot = -rot;
-}
 
-function updateTimerElem(elem, time, showneg, mode, paused, active){
-    elem.innerHTML = timertext(time, showneg);
+
+function updateTimerElem(elem, time, mode, paused, active){
+    elem.innerHTML = timertext(time);
     elem.dataset.state = mode;
     elem.dataset.paused = paused;
     elem.dataset.active = active;
@@ -43,8 +35,8 @@ function toggle(elem, values, success){
 }
 
 export{
+    timertext,
     strBool,
-    setTextRot,
     toggle,
     updateMovCnt,
     updateTimerElem

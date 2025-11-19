@@ -77,7 +77,7 @@ var ClockMode = {
 };
 
 
-/*
+
 
 
 
@@ -97,9 +97,17 @@ var Timer = {//fix states, do it, idk
     
 
     reload: function(){
-        updateTimerElem(t0, this.t[0], this.paused, (this.tpos == 0), this.showneg);
-        updateTimerElem(t1, this.t[1], this.paused, (this.tpos == 1), this.showneg);
-        updateMovCnt(movcnt, this.hlfmovcnt);
+        t0.innerHTML = timertext(this.t[0], this.showneg);
+        t0.dataset.state = ClockMode(this.t[0]);
+        t0.dataset.paused = UI.strBool(this.paused);
+        t0.dataset.active = UI.strBool(this.tpos == 0);
+
+        t1.innerHTML = timertext(this.t[1], this.showneg);
+        t1.dataset.state = ClockMode(this.t[1]);
+        t1.dataset.paused = UI.strBool(this.paused);
+        t1.dataset.active = UI.strBool(this.tpos == 1);
+
+        movcnt.innerHTML = this.hlfmovcnt;
     },
 
     setTime: function(currt){this.flagtime = this.t[this.tpos]+currt;},
@@ -107,7 +115,7 @@ var Timer = {//fix states, do it, idk
 
 
     reset : function(){
-        this.tpos = 2;//2 is start val
+        this.tpos = 2;
         this.paused = true;
         this.hlfmovcnt = 0;
 
@@ -124,7 +132,9 @@ var Timer = {//fix states, do it, idk
             this.setTime();
                 this.Timer = setInterval(function(){
                 this.updateTime(performance.now());
-                updateTimerElem(ti[this.tpos], this.t[this.tpos], false, true, this.showneg);
+
+                ti[this.tpos].innerHTML = timertext(this.t[this.tpos], this.showneg);
+                ti[this.tpos].dataset.state = ClockMode(this.t[this.tpos]);
             }, this.dt);
         }
         else clearInterval(this.Timer);
@@ -224,7 +234,7 @@ document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim 
 });*/
 
 
-/*
+
 document.querySelectorAll("[data-anim]").forEach(function(elem){//set data-anim = "trigger1 trigger2"
     elem.dataset.anim.split(" ").forEach(function(Ani){
         elem.addEventListener(Ani, function(){
@@ -271,4 +281,3 @@ function opensettings(){
     smenu.hidden = !smenu.hidden;
 }
 
-*/

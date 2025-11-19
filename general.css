@@ -9,6 +9,7 @@ icon name
 */
 .material-symbols-rounded{
 	height: 200px;
+	transform: scale(2);
 }
 
 @keyframes rot360{

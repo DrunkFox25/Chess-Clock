@@ -67,7 +67,7 @@ var ClockMode = {
 
 
 
-var Timer = {//fix states, do it, idk
+var Timer = {
     dt: 1,
     paused: true,
     t: [-1, -1],

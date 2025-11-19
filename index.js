@@ -1,10 +1,9 @@
+import * as UI from "ui.js";
+
 //var DisplayW = window.innerWidth;
 //var DisplayH = window.ninnerHeight;
 
 
-
-
-import * as UI from "./ui.js";
 
 
 

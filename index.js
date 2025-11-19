@@ -29,6 +29,7 @@ var movcnt = document.getElementById("movcnt");
 
 
 var smenu = document.getElementById("settingsmenu");
+var cmode = document.getElementById("clockmode");
 
 
 
@@ -36,6 +37,18 @@ var smenu = document.getElementById("settingsmenu");
 
 
 
+function Tstr(str){
+    let arr = str.split('+');
+    if(arr.length == 1) return [Number(arr[0])/(60*1000), 0];
+    return [Number(arr[0])/(60*1000.0), Number(arr[1])/1000.0];
+}
+
+function Tget(start, inc){
+    start /= 60*1000.0;
+    inc /= 1000.0;
+    if(inc == 0) return ""+start;
+    return start+"+"+inc;
+}
 
 var ClockMode = {
     start: [3*60*1000, 3*60*1000],
@@ -48,8 +61,26 @@ var ClockMode = {
     },
 
     currentTimeMode: function(){
-        if(ClockMode.start[0] == ClockMode.start[1] && ClockMode.inc[0] == ClockMode.inc[1]) return (ClockMode.start[0]/(60*1000) + "+" + ClockMode.inc[0]/1000);
-        return (ClockMode.start[0]/(60*1000) + "+" + ClockMode.inc[0]/1000 + ";" + ClockMode.start[0]/(60*1000) + "+" + ClockMode.inc[0]/1000);
+        var str0 = Tget(ClockMode.start[0], ClockMode.inc[0]);
+        var str1 = Tget(ClockMode.start[1], ClockMode.inc[1]);
+        if(str0 == str1) return str0;
+        return str0 + ";" + str1;
+    },
+
+    setTimeMode: function(str){
+        var arr = [str.replaceAll(" ", "")];
+
+        if(arr.length == 1) arr = arr[0].split(';');
+        if(arr.length == 1) arr = arr[0].split(',');
+        if(arr.length == 1) arr = arr[0].split('|');
+
+        if(arr.length == 1) arr.push(arr[0]);
+
+        for(var i = 0; i <= 2; i++){
+            const TT = Tstr(arr[i]);
+            start[i] = TT[0];
+            inc[i] = TT[1];
+        }
     },
 
     state: function(t){
@@ -207,6 +238,12 @@ function f(param){
 document.addEventListener('keyup',
     event => {
         if(event.code == 'Space') Timer.event("space");
+    }
+);
+
+cmode.addEventListener('keyup',
+    event => {
+        if(event.code == 'Enter') ClockMode.setTimeMode(cmode.value);
     }
 );
 

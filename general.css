@@ -7,8 +7,8 @@
 icon name
 </span>
 */
-.material-symbols-rounded{
-	transform: scale(10);
+span.material-symbols-rounded{
+	font-size: 60px;
 }
 
 @keyframes rot360{

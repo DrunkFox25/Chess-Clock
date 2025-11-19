@@ -46,12 +46,6 @@ movcnt.innerHTML = 4;
 
 
 
-document.addEventListener('keyup',
-    event => {alert(event.code);}
-);
-
-
-
 
 
 var ClockMode = {
@@ -97,12 +91,12 @@ var Timer = {//fix states, do it, idk
     
 
     reload: function(){
-        t0.innerHTML = timertext(this.t[0], this.showneg);
+        t0.innerHTML = UI.timertext(this.t[0], this.showneg);
         t0.dataset.state = ClockMode(this.t[0]);
         t0.dataset.paused = UI.strBool(this.paused);
         t0.dataset.active = UI.strBool(this.tpos == 0);
 
-        t1.innerHTML = timertext(this.t[1], this.showneg);
+        t1.innerHTML = UI.timertext(this.t[1], this.showneg);
         t1.dataset.state = ClockMode(this.t[1]);
         t1.dataset.paused = UI.strBool(this.paused);
         t1.dataset.active = UI.strBool(this.tpos == 1);
@@ -129,11 +123,11 @@ var Timer = {//fix states, do it, idk
         if(this.tpos == 2) return false;
 
         if(this.paused){
-            this.setTime();
-                this.Timer = setInterval(function(){
+            this.setTime(performance.now());
+            this.Timer = setInterval(function(){
                 this.updateTime(performance.now());
 
-                ti[this.tpos].innerHTML = timertext(this.t[this.tpos], this.showneg);
+                ti[this.tpos].innerHTML = UI.timertext(this.t[this.tpos], this.showneg);
                 ti[this.tpos].dataset.state = ClockMode(this.t[this.tpos]);
             }, this.dt);
         }
@@ -201,14 +195,16 @@ function rotate(){
 
 
 
-function f(param){Timer.event(param.id);}//onclick f(this)
+function f(param){
+    Timer.event(param.id);
+}//onclick f(this)
 
 
 
 
 document.addEventListener('keyup',
     event => {
-        if (event.code == 'Space') Timer.event("space");
+        if(event.code == 'Space') Timer.event("space");
     }
 );
 

@@ -43,18 +43,18 @@ var ClockMode = {
     lowtime: 10*1000,
 
     startTime: function(index){
-        if(this.start[index] <= 0) return this.inc[index];
-        return this.start[index];
+        if(Timer.start[index] <= 0) return Timer.inc[index];
+        return Timer.start[index];
     },
 
     currentTimeMode: function(){
-        if(this.start[0] == this.start[1] && this.inc[0] == this.inc[1]) return (this.start[0]/(60*1000) + "+" + this.inc[0]/1000);
-        return (this.start[0]/(60*1000) + "+" + this.inc[0]/1000 + ";" + this.start[0]/(60*1000) + "+" + this.inc[0]/1000);
+        if(Timer.start[0] == Timer.start[1] && Timer.inc[0] == Timer.inc[1]) return (Timer.start[0]/(60*1000) + "+" + Timer.inc[0]/1000);
+        return (Timer.start[0]/(60*1000) + "+" + Timer.inc[0]/1000 + ";" + Timer.start[0]/(60*1000) + "+" + Timer.inc[0]/1000);
     },
 
     state: function(t){
         if(t <= 0) return "flag";
-        if(t <= this.lowtime) return "lowtime";
+        if(t <= Timer.lowtime) return "lowtime";
         return "normal";
     }
 };
@@ -81,104 +81,104 @@ var Timer = {
 
 
     updateText: function(i){
-        ti[i].innerHTML = UI.timertext(this.t[i], this.showneg);
-        ti[i].dataset.state = ClockMode.state(this.t[i]);
+        ti[i].innerHTML = UI.timertext(Timer.t[i], Timer.showneg);
+        ti[i].dataset.state = ClockMode.state(Timer.t[i]);
     },
 
     reload: function(){
-        this.updateText(0);
-        t0.dataset.paused = UI.strBool(this.paused);
-        t0.dataset.active = UI.strBool(this.tpos == 0);
+        Timer.updateText(0);
+        t0.dataset.paused = UI.strBool(Timer.paused);
+        t0.dataset.active = UI.strBool(Timer.tpos == 0);
 
-        this.updateText(1);
-        t1.dataset.paused = UI.strBool(this.paused);
-        t1.dataset.active = UI.strBool(this.tpos == 1);
+        Timer.updateText(1);
+        t1.dataset.paused = UI.strBool(Timer.paused);
+        t1.dataset.active = UI.strBool(Timer.tpos == 1);
 
-        movcnt.innerHTML = this.hlfmovcnt;
+        movcnt.innerHTML = Timer.hlfmovcnt;
 
         return;
     },
 
     mTime: function(){
-        this.currt = performance.now();
+        Timer.currt = performance.now();
     },
     setTime: function(){
-        this.flagtime = this.t[this.tpos]+this.currt;
+        Timer.flagtime = Timer.t[Timer.tpos]+Timer.currt;
     },
-    updateTheTime: function(){//The is in their to try and prevent browser hissy fit
-        this.mTime();
-        this.t[this.tpos] = this.flagtime-this.currt;
+    updateTime: function(){
+        Timer.mTime();
+        Timer.t[Timer.tpos] = Timer.flagtime-Timer.currt;
     },
 
 
     reset : function(){
-        this.tpos = 2;
-        this.paused = true;
-        this.hlfmovcnt = 0;
+        Timer.tpos = 2;
+        Timer.paused = true;
+        Timer.hlfmovcnt = 0;
 
-        this.t[0] = ClockMode.startTime(0);
-        this.t[1] = ClockMode.startTime(1);
+        Timer.t[0] = ClockMode.startTime(0);
+        Timer.t[1] = ClockMode.startTime(1);
 
-        this.reload();
+        Timer.reload();
 
         return;
     },
 
     toggleplay: function(){
-        if(this.tpos == 2) return false;
+        if(Timer.tpos == 2) return false;
 
-        if(this.paused){
-            this.mTime();
-            this.setTime();
+        if(Timer.paused){
+            Timer.mTime();
+            Timer.setTime();
 
-            this.Timer = setInterval(function(){
-                this.updateTheTime();
-                this.updateText(this.tpos);
-            }, this.dt);
+            Timer.Timer = setInterval(function(){
+                Timer.updateTime();
+                Timer.updateText(Timer.tpos);
+            }, Timer.dt);
         }
-        else{clearInterval(this.Timer);}
+        else{clearInterval(Timer.Timer);}
 
-        this.paused = !this.paused;
+        Timer.paused = !Timer.paused;
 
-        this.reload();
+        Timer.reload();
 
         return true;
     },
 
     switch: function(){
-        this.hlfmovcnt += 1;
+        Timer.hlfmovcnt += 1;
         
-        this.updateTheTime();
+        Timer.updateTime();
 
-        this.t[this.tpos] += ClockMode.inc[this.tpos];
+        Timer.t[Timer.tpos] += ClockMode.inc[Timer.tpos];
         
-        this.tpos = 1-this.tpos;//switch players
+        Timer.tpos = 1-Timer.tpos;//switch players
 
-        this.setTime();
+        Timer.setTime();
 
-        this.reload();
+        Timer.reload();
 
         return;
     },
 
     event : function(val){
-        if(val == "space" && !this.spaceswitch) return;
+        if(val == "space" && !Timer.spaceswitch) return;
 
-        if(this.paused){
-            if(this.tpos == 2){
+        if(Timer.paused){
+            if(Timer.tpos == 2){
                 if(val == "space") return;
-                if(val == this.tpos) return;
-                this.tpos = 1-val;
+                if(val == Timer.tpos) return;
+                Timer.tpos = 1-val;
             }
 
-            this.toggleplay();
+            Timer.toggleplay();
 
             return;
         }
 
-        if(1-val == this.tpos) return;
+        if(1-val == Timer.tpos) return;
         
-        this.switch();
+        Timer.switch();
 
         return;
     }
@@ -199,7 +199,7 @@ function rotate(){
 function f(param){
     if(param.id == "Timer0") Timer.event(0);
     if(param.id == "Timer1") Timer.event(1);
-}//onclick f(this)
+}//onclick f(Timer)
 
 
 

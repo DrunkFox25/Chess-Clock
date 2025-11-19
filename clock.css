@@ -35,7 +35,7 @@
 }
 
 #playmenu {
-	background-color: #ffffff;
+	/*background-color: #ffffff;*/
 }
 
 #Timer0, #Timer1, #playmenu {
@@ -50,8 +50,8 @@
 }
 
 #playmenu {
-	left: 40%;
-	right: 40%;
+	left: 45%;
+	right: 45%;
 }
 
 #Timer1 {

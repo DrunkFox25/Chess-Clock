@@ -345,9 +345,8 @@ function clicktimer(val){Timer.click(val);}
 function settime(str){ClockMode.setTimeMode(str);}
 
 
-Object.getOwnPropertyNames(this)
-  .filter(key => typeof this[key] === 'function')
-  .forEach(key => window[key] = this[key]);
+Object.assign(window, {treset, toggleplay, toggle, togglemute, togglefullscreen, clicktimer, settime, addtime, rotate, setuseflag, setconfirmreset, setdeaf});
+
 
 /*
 <style>

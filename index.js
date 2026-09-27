@@ -257,8 +257,11 @@ function rotate(){
 }
 
 window.addEventListener('keydown', (event) => {
-  if (event.code === 'Space') {
-    audioflag.play();
+  if (event.code === 'Space' || 
+    event.key === ' ' || 
+    event.key === 'Spacebar' || 
+    event.keyCode === 32 || 
+    event.which === 32) {
     Timer.space();
   }
 });

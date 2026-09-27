@@ -26,9 +26,7 @@ var smenu = document.getElementById("settingsmenu");
 var cmode = document.getElementById("clockmode");
 var playbutton = document.getElementById("playbutton");
 
-const audioobj = document.getElementById('audioObj'); 
-
-const audiomove = audioobj.contentDocument.getElementById('Move').contentDocument; 
+const audioobj = document.getElementById('audioObj').contentDocument; 
 
 const audiomove = audioobj.getElementById('Move');
 const audiolowtime = audioobj.getElementById('LowTime');

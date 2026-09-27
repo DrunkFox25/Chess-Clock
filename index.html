@@ -6,83 +6,128 @@
 
     <link rel="icon" href="assets/img/favicon.jpeg" type="image/x-icon">
 
-    <title>A Very Big Chess C**ck</title>
+    <!--<title>A Very Big Chess C**ck</title>-->
+    <title>A Very Big Chess Clock</title>
 
   </head>
 
   <body>
-  <object src="./audio.html"></object><!--should load audio-->
+
+
+
+  <object src="./audio.html"></object>
 
   <link rel="stylesheet" href="./style.css"/>
-  <script type="module" src="./index.js"></script>
+  <script type="module" src="./index.js" defer></script>
+    <div id = "ui">
 
-
-  <div id = "clock">
-
-    <div id = "playmenu">
-      
-      <span id = "playbutton" class = "material-symbols-rounded">play_arrow</span>
-      <span id = "settingsbutton" class = "material-symbols-rounded">settings</span>
-      <span id = "refreshbutton" class = "material-symbols-rounded" data-anim="click">refresh</span>
-      <span id = "mutebutton" class = "material-symbols-rounded">volume_up</span>
-      <span id = "movcnt">0</span>
-
-      <input
-  type="text"
-  id="clockmode"
-  name="clockmode"
-  size="10"/>
-      
+    <div id = "buttons">
+     <span id = "playbutton" class = "material-symbols-rounded" onclick = "toggleplay()" title="Pause/Play">pause</span>
+     <span class = "material-symbols-rounded" onclick = "document.getElementById('settingsmenu').showModal()" title="Settings">settings</span>
+     <span id = "rbutton" class = "material-symbols-rounded" onclick = "treset()" data-anim = "click" title="Reset">refresh</span>
+     <span class = "material-symbols-rounded" onclick = "toggle(this, ['volume_up', 'volume_off'], togglemute())" title="Mute">volume_up</span>
+     <span class = "material-symbols-rounded" onclick = "toggle(this, ['fullscreen', 'fullscreen_exit'], togglefullscreen())" title="Fullscreen">fullscreen</span>
+     <span class = "material-symbols-rounded" onclick = "document.getElementById('timermenu').showModal()" title="Timer Settings">timer</span>
+     <span id = "movcnt">-0</span>
     </div>
-    
-    <div id = "Timer0" class = "Timer centerContent" onclick = "f(this)" data-textrot = 0>-0</div>
-    <div id = "Timer1" class = "Timer centerContent" onclick = "f(this)" data-textrot = 0>-0</div>
 
-  </div>
+    <div id = "Timer0" class = "Timer" onclick = "clicktimer(0)" data-textrot = 0><span>-0</span></div>
+    <div id = "Timer1" class = "Timer" onclick = "clicktimer(1)" data-textrot = 0><span>-0</span></div>
 
+    <dialog id = "timermenu">
+     <div class = "dialog-content">
+       <h2>Timer Control</h2>
+       <span id = "currclockmode"></span>
+       <br>
+       <div class="menu-row">
+         <input id = "clockmode" size = "10" autocomplete = "off" onchange = "settime()" value = "10+0"/>
+         <select autocomplete = "off" onchange = "document.getElementById('clockmode').value = this.value; document.getElementById('clockmode').dispatchEvent(new Event('change'));">
+           <option></option>
+           <option value = "3+2">3+2</option>
+           <option value = "5+3">5+3</option>
+           <option value = "10+0">10+0</option>
+           <option value = "10+5">10+5</option>
+         </select>
+       </div>
+       <br>
+       <div class = "menu-row icon-row">
+         <span class = "material-symbols-rounded" onclick = "alert('retrtime')" title="Retrieve Time">punch_clock</span>
+         <span class = "material-symbols-rounded" onclick = "alert('savetime')" title="Save Time">save_clock</span>
+       </div>
+       <div class = "menu-row icon-row">
+         <span class = "material-symbols-rounded" onclick = "addtime(0)" title="Add Time Player 1">more_time</span>
+         <span class = "material-symbols-rounded" onclick = "addtime(1)" title="Add Time Player 2">more_time</span>
+       </div>
+       <br>
+       <div class = "center">
+         <span class = "material-symbols-rounded close-btn" onclick = "this.closest('dialog').close()" title = "Close">close</span>
+       </div>
+     </div>
+    </dialog>
 
-  <br>
-  <br>
+    <dialog id = "settingsmenu">
+     <div class="dialog-content">
+       <h1>Settings Menu</h1>
+       <br>
+       <div class="center">
+         <span class = "material-symbols-rounded" onclick = "rotate()" title="Rotate Clock">rotate_90_degrees_cw</span>
+       </div>
+       <br>
+       <div class="checkbox-group">
+         <label><input type="checkbox" autocomplete = "off" onchange = "setuseflag(this.checked)"> Use Flag Icon</label>
+         <label><input type="checkbox" autocomplete = "off" onchange = "setconfirmreset(this.checked)"> Confirm Reset</label>
+       </div>
+       <br>
+       <div class="center">
+         <h3>Accessibility Settings</h3>
+       </div>
+       <br>
+       <div class="checkbox-group">
+         <label><input type="checkbox" autocomplete = "off" onchange = "if(this.checked){alert('how did you find this button');}"> Blind Mode</label>
+         <label><input type="checkbox" autocomplete = "off" id = "deafbutton" onchange = "setdeaf(this.checked)"> Deaf Mode</label>
+         <label><input type="checkbox" autocomplete = "off" onchange = "document.getElementById('deafbutton').checked = false; document.getElementById('deafbutton').disabled = this.checked;"> Epileptic Mode</label>
+       </div>
+       <br>
+       <div class="center icon-row">
+         <span class = "material-symbols-rounded" onclick = "document.getElementById('creditsmenu').showModal()" title = "Credits">info</span>
+         <span class = "material-symbols-rounded close-btn" onclick = "this.closest('dialog').close()" title = "Close">close</span>
+       </div>
+     </div>
+    </dialog>
 
-  
-  <div id = "timermenu" hidden>
-    set time
-    load time
-    save time
-  </div>
-
-  <div id = "settingsmenu" hidden>
-    <button id = "rotate" onclick = "rotate()">ROTATO</button>
-    <br>
-    On/off space toggles clock
-    fullscreen
-    orientation
-    allow negitive time if click on flag (each click toggles visibility)
-    toggle reset confirmation
-    
-    Accesibility settings:
-      blind mode: do smth crazy idk
-      deaf mode: clock violently changes color at flag
-      epileptic mode: prevents the turn on of deaf mode
-    
-    <div id = "creditslink">
-      <img src="assets/img/GitHub Logos/GitHub_Invertocat_Light.svg" height = "100px">
-      <span>CREDITS</span>
+    <dialog id = "creditsmenu">
+     <div class="dialog-content">
+       <div class="center">
+         <a href="https://raw.githubusercontent.com/DrunkFox25/Chess-Clock" target="_blank">
+           <img src="https://github.com/primer/octicons/raw/refs/heads/main/icons/lockup-github-16.svg" height = "60px">
+         </a>
+       </div>
+       <p>Thx Github for hosting this project.</p>
+       <p>Thx Google for <a href = "https://fonts.google.com/icons" target="_blank">material font</a> icons.</p>
+       <p>Thx W3Schools for lots of css help.</p>
+       <p>Thx lichess for sound assets.</p>
+       <p>This project uses audio assets from the Lichess Open Source Project, available under a Creative Commons license.</p>
+       <p>Developer: <a href = "https://raw.githubusercontent.com/DrunkFox25" target="_blank">Peter Aravin (DrunkFox25)</a></p>
+       <br>
+       <div class="center">
+         <span class = "material-symbols-rounded close-btn" onclick = "this.closest('dialog').close()" title = "Close">close</span>
+       </div>
+     </div>
+    </dialog>
     </div>
-  </div>
 
-  <div id = "credits" hidden>
-    <a href="https://github.com/DrunkFox25/Chess-Clock"><img src="assets/img/GitHub Logos/GitHub_Lockup_Light.svg" height = "100px"></a>
-    
-    Thx Github for hosting this project.
-    Thx Google for <a href = "https://fonts.google.com/icons">matirial font</a> icons (on <a href = "https://github.com/google/material-design-icons">github</a>).
-    Thx W3Schools for lots of css help.
-    Thx lichess for sound assets.
+  <style>
 
-    Dev: <a href = "https://github.com/DrunkFox25">DrunkFox25</a> ie. Peter Aravin
+  </style>
 
-    <button onclick="exitmenu('credits')">Exit Menu</button>
-  </div>
+  <script defer>
+
+
+
+
+
+
+  </script>
 
   </body>
 </html>

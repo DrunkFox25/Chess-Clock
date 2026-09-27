@@ -345,7 +345,9 @@ clicktimer = Timer.click;
 settime = ClockMode.setTimeMode;
 
 
-
+Object.getOwnPropertyNames(this)
+  .filter(key => typeof this[key] === 'function')
+  .forEach(key => window[key] = this[key]);
 
 /*
 <style>

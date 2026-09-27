@@ -26,11 +26,18 @@ var smenu = document.getElementById("settingsmenu");
 var cmode = document.getElementById("clockmode");
 var playbutton = document.getElementById("playbutton");
 
-const audioobj = document.getElementById('audioObj').contentDocument; 
+const audioobj = document.getElementById('audioObj');
 
-const audiomove = audioobj.getElementById('Move');
-const audiolowtime = audioobj.getElementById('LowTime');
-const audioflag = audioobj.getElementById('GenericNotify');
+
+let audiomove;
+let audiolowtime;
+let audioflag;
+
+audioobj.addEventListener('load', function(){
+    audiomove = audioobj.contentDocument.getElementById('Move');
+    audiolowtime = audioobj.contentDocument.getElementById('LowTime');
+    audioflag = audioobj.contentDocument.getElementById('GenericNotify');
+});
 
 
 

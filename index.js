@@ -341,8 +341,8 @@ function toggleplay(){
     }
 }
 
-clicktimer = Timer.click;
-settime = ClockMode.setTimeMode;
+function clicktimer(val){Timer.click(val);}
+function settime(str){ClockMode.setTimeMode(str);}
 
 
 Object.getOwnPropertyNames(this)

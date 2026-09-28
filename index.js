@@ -79,7 +79,7 @@ var ClockMode = {
 
         if(arr.length == 1) arr.push(arr[0]);
 
-        for(var i = 0; i <= 2; i+=1){
+        for(var i = 0; i < 2; i += 1){
           const modestr = (arr[i]+"+0").split('+');
           ClockMode.start[i] = Math.max(Number(modestr[0])*60*1000, Number(modestr[1])*1000);
           ClockMode.inc[i] = Number(modestr[1])*1000;
@@ -244,11 +244,11 @@ var Timer = {
 
     click : function(val){
       if(Timer.Timer == 0){
-        Timer.tpos = val;
+        Timer.tpos = 1-val;
         Timer.unpause();
+        if(!Timer.muted) audiomove.play();
       }
-      
-      if(Timer.tpos == val) Timer.switchplayers();
+      else if(Timer.tpos == val) Timer.switchplayers();
 
       return;
     }

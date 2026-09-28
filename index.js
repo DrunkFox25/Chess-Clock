@@ -244,11 +244,16 @@ var Timer = {
 
     click : function(val){
       if(Timer.Timer == 0){
-        Timer.tpos = 1-val;
-        Timer.unpause();
-        if(!Timer.muted) audiomove.play();
+        if(Timer.tpos != val){
+          Timer.tpos = 1-val;
+          Timer.unpause();
+          if(!Timer.muted) audiomove.play();
+        }
+        else{
+          Timer.unpause();
+        }
       }
-      else if(Timer.tpos == val) Timer.switchplayers();
+      if(Timer.tpos == val) Timer.switchplayers();
 
       return;
     }
